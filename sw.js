@@ -1,7 +1,7 @@
 const CACHE_NAME = 'uru-app-v1';
 const ASSETS_TO_CACHE = [
   './',
-  './uru.html',
+  './index.html',
   './manifest.json',
   './01.一つずつ.mp3',
   './02.この胸が教えている.mp3',
