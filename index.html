@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Uru — それを愛と呼ぶなら</title>
 
 <!-- PWA Meta Tags -->
@@ -91,7 +91,8 @@
   /* ============ BASE STYLES ============ */
   body{
     margin:0;
-    background: var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-base);
+    background-color: var(--bg-base);
+    background-image: var(--bg-gradient-1), var(--bg-gradient-2);
     color: var(--text-main);
     font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",
                 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -143,7 +144,21 @@
     color:transparent;
   }
 
-  .toggles{
+  /* Brand mark (top right) */
+.antonio-signature{
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  object-fit:cover;
+  flex:0 0 auto;
+  align-self:center;
+  margin-left:auto;
+  background:var(--btn-bg);
+  border:1px solid var(--btn-border);
+  box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.toggles{
     display:flex;
     gap:.4rem;
     flex-wrap:wrap;
@@ -479,6 +494,8 @@
       <button class="toggle" id="furiBtn"   aria-pressed="true"  title="Show / hide furigana above kanji">あ Furigana</button>
       <button class="toggle" id="sizeBtn"   aria-pressed="false" title="Increase font size &amp; weight">A⁺ Size / Weight</button>
     </div>
+
+    <img class="antonio-signature" src="Antonio.png" alt="ACG Applications" width="34" height="34" />
   </div>
 </header>
 
@@ -974,34 +991,56 @@
   var speedRange= document.getElementById('speedRange');
   var speedVal  = document.getElementById('speedVal');
 
+  /* ---------- saved preferences ---------- */
+  var PREFS_KEY = 'uru-prefs-v1';
+  function loadPrefs(){
+    try { return JSON.parse(localStorage.getItem(PREFS_KEY) || "{}") || {}; } catch (e) { return {}; }
+  }
+  function savePref(key, val){
+    try {
+      var cur = loadPrefs();
+      cur[key] = val;
+      localStorage.setItem(PREFS_KEY, JSON.stringify(cur));
+    } catch (e) { /* private mode: settings just will not persist */ }
+  }
+  function pref(key, fallback){
+    var cur = loadPrefs();
+    return Object.prototype.hasOwnProperty.call(cur, key) ? cur[key] : fallback;
+  }
+
   /* ---------- generic toggle helper ---------- */
   function bindToggle(btn, cls, initial) {
     var on = initial;
     btn.setAttribute('aria-pressed', String(on));
-    if (on) body.classList.add(cls);
+    body.classList.toggle(cls, on);   // body ships with show-furi/show-en already set
     btn.addEventListener('click', function () {
       on = !on;
       btn.setAttribute('aria-pressed', String(on));
       body.classList.toggle(cls, on);
+      savePref(cls, on);
       if (cls === 'tts-on' && !on) stopSpeaking();
     });
   }
 
-  bindToggle(enBtn,     'show-en',     true);
-  bindToggle(furiBtn,   'show-furi',   true);
-  bindToggle(sizeBtn,   'big',         false);
+  bindToggle(enBtn,     'show-en',     pref('show-en',   true));
+  bindToggle(furiBtn,   'show-furi',   pref('show-furi', true));
+  bindToggle(sizeBtn,   'big',         pref('big',       false));
 
   /* ---------- theme toggle ---------- */
-  var isDark = false; // Starts in Light mode by default
+  var isDark = pref('dark', false);
+  themeBtn.setAttribute('aria-pressed', String(isDark));
+  if (isDark) body.classList.add('dark-mode');
   themeBtn.addEventListener('click', function () {
     isDark = !isDark;
     themeBtn.setAttribute('aria-pressed', String(isDark));
     body.classList.toggle('dark-mode', isDark);
+    savePref('dark', isDark);
   });
 
   /* ---------- TTS ---------- */
   var synth = window.speechSynthesis;
-  var ttsOn = false;
+  var ttsOn = pref('tts', false);
+  if (ttsOn) { body.classList.add('tts-on'); }
   var currentLine = null;
   var voiceJa = null;
 
@@ -1049,10 +1088,12 @@
   }
 
   /* TTS toggle button */
+  ttsBtn.setAttribute('aria-pressed', String(ttsOn));
   ttsBtn.addEventListener('click', function () {
     ttsOn = !ttsOn;
     ttsBtn.setAttribute('aria-pressed', String(ttsOn));
     body.classList.toggle('tts-on', ttsOn);
+    savePref('tts', ttsOn);
     if (!ttsOn) stopSpeaking();
   });
 
@@ -1075,7 +1116,7 @@
   var currentAudio = null;
   var currentBlock = null;
   var currentPlayBtn = null;
-  var playbackRate = 1;
+  var playbackRate = pref('rate', 1);
 
   function resetUI() {
     if (currentBlock) currentBlock.classList.remove('playing');
@@ -1183,11 +1224,13 @@
 
   speedRange.addEventListener('input', function () {
     playbackRate = parseFloat(speedRange.value);
+    savePref('rate', playbackRate);
     updateSpeedLabel();
     if (currentAudio) {
       currentAudio.playbackRate = playbackRate;
     }
   });
+  speedRange.value = String(playbackRate);
   updateSpeedLabel();
 
   /* stop everything when leaving the page */
