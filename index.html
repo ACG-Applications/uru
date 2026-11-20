@@ -683,6 +683,19 @@
     .brand{ font-size:.85rem; gap:.3rem; }
     .antonio-signature{ width:30px; height:30px; }
   }
+
+  /* Vocals-only button: a touch smaller so the pair reads as main + alternative. */
+  .play-btn.vocals-btn{
+    width:2.1rem;
+    height:2.1rem;
+    border-color:#3f7f5f;
+    color:#356e52;
+    font-size:.9rem;
+  }
+
+  .play-btn.vocals-btn:hover{
+    background:rgba(63,127,95,.12);
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -759,6 +772,7 @@
   <div class="audio-block" data-audio="01.一つずつ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 01">▶</button>
+      <button class="play-btn vocals-btn" data-audio="01.一つずつ_vocals.mp3" aria-label="Play vocals only for block 01" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 01" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>01.</strong> 一つずつ</span>
     </div>
@@ -776,6 +790,7 @@
   <div class="audio-block" data-audio="02.この胸が教えている.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 02">▶</button>
+      <button class="play-btn vocals-btn" data-audio="02.この胸が教えている_vocals.mp3" aria-label="Play vocals only for block 02" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 02" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>02.</strong> この胸が教えている</span>
     </div>
@@ -805,6 +820,7 @@
   <div class="audio-block" data-audio="03.感じてるよ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 03">▶</button>
+      <button class="play-btn vocals-btn" data-audio="03.感じてるよ_vocals.mp3" aria-label="Play vocals only for block 03" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 03" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>03.</strong> 感じてるよ</span>
     </div>
@@ -846,6 +862,7 @@
   <div class="audio-block" data-audio="04.迎えにいくから.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 04">▶</button>
+      <button class="play-btn vocals-btn" data-audio="04.迎えにいくから_vocals.mp3" aria-label="Play vocals only for block 04" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 04" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>04.</strong> 迎えにいくから</span>
     </div>
@@ -871,6 +888,7 @@
   <div class="audio-block" data-audio="05.笑わらってくれ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 05">▶</button>
+      <button class="play-btn vocals-btn" data-audio="05.笑わらってくれ_vocals.mp3" aria-label="Play vocals only for block 05" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 05" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>05.</strong> 笑わらってくれ</span>
     </div>
@@ -896,6 +914,7 @@
   <div class="audio-block" data-audio="06.離さないように.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 06">▶</button>
+      <button class="play-btn vocals-btn" data-audio="06.離さないように_vocals.mp3" aria-label="Play vocals only for block 06" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 06" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>06.</strong> 離さないように</span>
     </div>
@@ -921,6 +940,7 @@
   <div class="audio-block" data-audio="07.そこにあるんだよ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 07">▶</button>
+      <button class="play-btn vocals-btn" data-audio="07.そこにあるんだよ_vocals.mp3" aria-label="Play vocals only for block 07" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 07" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>07.</strong> そこにあるんだよ</span>
     </div>
@@ -946,6 +966,7 @@
   <div class="audio-block" data-audio="08.大馬鹿者だ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 08">▶</button>
+      <button class="play-btn vocals-btn" data-audio="08.大馬鹿者だ_vocals.mp3" aria-label="Play vocals only for block 08" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 08" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>08.</strong> 大馬鹿者だ</span>
     </div>
@@ -987,6 +1008,7 @@
   <div class="audio-block" data-audio="09.この幼さも.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 09">▶</button>
+      <button class="play-btn vocals-btn" data-audio="09.この幼さも_vocals.mp3" aria-label="Play vocals only for block 09" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 09" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>09.</strong> この幼さも</span>
     </div>
@@ -1012,6 +1034,7 @@
   <div class="audio-block" data-audio="10.くれたこと.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 10">▶</button>
+      <button class="play-btn vocals-btn" data-audio="10.くれたこと_vocals.mp3" aria-label="Play vocals only for block 10" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 10" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>10.</strong> くれたこと</span>
     </div>
@@ -1037,6 +1060,7 @@
   <div class="audio-block" data-audio="11.迎えにいくから.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 11">▶</button>
+      <button class="play-btn vocals-btn" data-audio="11.迎えにいくから_vocals.mp3" aria-label="Play vocals only for block 11" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 11" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>11.</strong> 迎えにいくから</span>
     </div>
@@ -1062,6 +1086,7 @@
   <div class="audio-block" data-audio="12.伝えにいくよ.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 12">▶</button>
+      <button class="play-btn vocals-btn" data-audio="12.伝えにいくよ_vocals.mp3" aria-label="Play vocals only for block 12" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 12" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>12.</strong> 伝えにいくよ</span>
     </div>
@@ -1087,6 +1112,7 @@
   <div class="audio-block" data-audio="13.たった一つの輝き.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 13">▶</button>
+      <button class="play-btn vocals-btn" data-audio="13.たった一つの輝き_vocals.mp3" aria-label="Play vocals only for block 13" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 13" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>13.</strong> たった一つの輝き</span>
     </div>
@@ -1120,6 +1146,7 @@
   <div class="audio-block" data-audio="14.揺るがない形になって.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 14">▶</button>
+      <button class="play-btn vocals-btn" data-audio="14.揺るがない形になって_vocals.mp3" aria-label="Play vocals only for block 14" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 14" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>14.</strong> 揺るがない形になって</span>
     </div>
@@ -1145,6 +1172,7 @@
   <div class="audio-block" data-audio="15.それを愛と呼ぶなら.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 15">▶</button>
+      <button class="play-btn vocals-btn" data-audio="15.それを愛と呼ぶなら_vocals.mp3" aria-label="Play vocals only for block 15" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 15" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>15.</strong> それを愛と呼ぶなら</span>
     </div>
@@ -1166,6 +1194,7 @@
   <div class="audio-block" data-audio="16.君がいて欲しい.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 16">▶</button>
+      <button class="play-btn vocals-btn" data-audio="16.君がいて欲しい_vocals.mp3" aria-label="Play vocals only for block 16" title="Vocals only — sing along">🎤</button>
       <button class="loop-btn" aria-label="Toggle loop for block 16" aria-pressed="false" title="Loop this block">🔁</button>
       <span class="audio-label"><strong>16.</strong> 君がいて欲しい</span>
     </div>
@@ -1368,6 +1397,7 @@
   /* ---------- audio playback ---------- */
   var blocks = document.querySelectorAll('.audio-block');
   var currentAudio = null;
+  var currentSrc = null;   // which file of the block is playing
   var currentBlock = null;
   var currentPlayBtn = null;
   var playbackRate = pref('rate', 1);
@@ -1376,6 +1406,7 @@
     if (currentBlock) currentBlock.classList.remove('playing');
     if (currentPlayBtn) currentPlayBtn.textContent = '▶';
     currentAudio = null;
+    currentSrc = null;
     currentBlock = null;
     currentPlayBtn = null;
     updatePlayerBar();
@@ -1389,12 +1420,12 @@
     resetUI();
   }
 
-  function playBlock(block, playBtn) {
-    var src = block.getAttribute('data-audio');
+  function playBlock(block, playBtn, srcOverride) {
+    var src = srcOverride || block.getAttribute('data-audio');
     if (!src) return;
 
     // If this is the currently playing block, toggle pause
-    if (currentBlock === block && currentAudio && !currentAudio.paused) {
+    if (currentBlock === block && currentSrc === src && currentAudio && !currentAudio.paused) {
       pauseCurrent();
       return;
     }
@@ -1440,6 +1471,7 @@
       }
     });
 
+    currentSrc = src;
     var playPromise = audio.play();
     updatePlayerBar();
     if (playPromise && typeof playPromise.catch === 'function') {
@@ -1500,11 +1532,17 @@
   // own label. (The pill text toggles between Play/Pause, so it is no use here.)
   function activeTrackLabel() {
     if (!currentBlock) return "";
-    var name = currentBlock.getAttribute("data-name");
-    if (name) return name;
-    var lab = currentBlock.querySelector(".audio-label");
-    if (lab) return lab.textContent.replace(/\s+/g, " ").trim();
-    return "";
+    var base = currentBlock.getAttribute("data-name");
+    if (!base) {
+      var lab = currentBlock.querySelector(".audio-label");
+      if (lab) base = lab.textContent.replace(/\s+/g, " ").trim();
+    }
+    if (!base) return "";
+    // block 08 playing its vocals track should say so in the bar
+    if (currentPlayBtn && currentPlayBtn.classList.contains("vocals-btn")) {
+      return base + " · vocals";
+    }
+    return base;
   }
 
   function updatePlayerBar() {
@@ -1583,6 +1621,17 @@
     playerBar.appendChild(stopBtn);
     document.body.appendChild(playerBar);
   }
+
+  /* Vocals-only buttons: same block, different file. */
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".vocals-btn"),
+    function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        playBlock(btn.closest(".audio-block"), btn, btn.getAttribute("data-audio"));
+      });
+    }
+  );
 
   /* Full song and karaoke: one handler for every title pill. A pill whose label
      changes while playing carries data-label-play / data-label-pause. */
