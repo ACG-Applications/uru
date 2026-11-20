@@ -1,9 +1,10 @@
-const CACHE_NAME = 'uru-app-v2';
+const CACHE_NAME = 'uru-app-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './manifest.json',
   './Antonio.png',
+  './00.intro.mp3',
   './01.一つずつ.mp3',
   './02.この胸が教えている.mp3',
   './03.感じてるよ.mp3',
@@ -19,7 +20,8 @@ const ASSETS_TO_CACHE = [
   './13.たった一つの輝き.mp3',
   './14.揺るがない形になって.mp3',
   './15.それを愛と呼ぶなら.mp3',
-  './16.君がいて欲しい.mp3'
+  './16.君がいて欲しい.mp3',
+  './17.end.mp3'
 ];
 
 // Install event: cache all assets

@@ -470,6 +470,43 @@
     .play-btn{width:2.2rem;height:2.2rem;}
     .loop-btn{width:2rem;height:2rem;font-size:.85rem;}
   }
+
+  /* Full-song button under the title */
+  .play-full-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:.5rem;
+    margin-top:.9rem;
+    padding:.5rem 1.1rem;
+    border-radius:999px;
+    border:1px solid var(--accent);
+    background:transparent;
+    color:var(--accent);
+    font:inherit;
+    font-size:.9rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:background .15s, color .15s;
+  }
+
+  .play-full-btn:hover,
+  .play-full-btn.playing{
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .play-full-btn .pf-icon{ font-size:.95rem; }
+
+  /* Instrumental blocks carry no lyric lines, so their label is set apart */
+  .audio-block.instrumental .audio-label{
+    font-style:italic;
+    color:#8a7e6e;
+  }
+  .audio-block.instrumental .audio-header{
+    margin-bottom:0;
+    padding-bottom:.2rem;
+    border-bottom:none;
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -507,6 +544,18 @@
       <ruby>愛<rt>あい</rt></ruby>と<ruby>呼<rt>よ</rt></ruby>ぶなら
     </h1>
     <div class="meta">Uru<span class="dot">•</span>それを愛と呼ぶなら<span class="dot">•</span>ドラマ「マイファミリー」主題歌</div>
+    <button class="play-full-btn" id="playFullBtn" data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3" title="Play the complete song">
+      <span class="pf-icon">▶</span>
+      <span class="pf-text">Play full song</span>
+    </button>
+  </div>
+
+  <!-- ================= INTRO (instrumental) ================= -->
+  <div class="audio-block instrumental" data-audio="00.intro.mp3">
+    <div class="audio-header">
+      <button class="play-btn" aria-label="Play or pause the intro">▶</button>
+      <span class="audio-label"><strong>Intro</strong> · instrumental</span>
+    </div>
   </div>
 
   <!-- ================= BLOCK 01 ================= -->
@@ -961,6 +1010,14 @@
     </div>
   </div>
 
+  <!-- ================= END (instrumental) ================= -->
+  <div class="audio-block instrumental" data-audio="17.end.mp3">
+    <div class="audio-header">
+      <button class="play-btn" aria-label="Play or pause the outro">▶</button>
+      <span class="audio-label"><strong>End</strong> · instrumental</span>
+    </div>
+  </div>
+
   <div class="divider">💕💕💕 Uru 💕💕💕</div>
 
 </main>
@@ -1232,6 +1289,21 @@
   });
   speedRange.value = String(playbackRate);
   updateSpeedLabel();
+
+  /* Play the complete song from the title */
+  var fullBtn = document.getElementById("playFullBtn");
+  if (fullBtn) {
+    fullBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      playBlock(fullBtn, fullBtn.querySelector(".pf-icon"));
+      var fullText = fullBtn.querySelector(".pf-text");
+      if (fullText) {
+        fullText.textContent = fullBtn.classList.contains("playing")
+          ? "Pause full song"
+          : "Play full song";
+      }
+    });
+  }
 
   /* stop everything when leaving the page */
   window.addEventListener('beforeunload', function() {
