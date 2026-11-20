@@ -478,7 +478,6 @@
     display:inline-flex;
     align-items:center;
     gap:.5rem;
-    margin-top:.9rem;
     padding:.5rem 1.1rem;
     border-radius:999px;
     border:1px solid var(--accent);
@@ -508,6 +507,26 @@
     margin-bottom:0;
     padding-bottom:.2rem;
     border-bottom:none;
+  }
+
+  /* Title actions: full song, then karaoke beneath it */
+  .song-actions{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:.55rem;
+    margin-top:.9rem;
+  }
+
+  .play-full-btn.karaoke{
+    border-color:#4a7ba6;
+    color:#3a6a94;
+  }
+
+  .play-full-btn.karaoke:hover,
+  .play-full-btn.karaoke.playing{
+    background:#4a7ba6;
+    color:#fff;
   }
 </style>
 </head>
@@ -546,10 +565,21 @@
       <ruby>愛<rt>あい</rt></ruby>と<ruby>呼<rt>よ</rt></ruby>ぶなら
     </h1>
     <div class="meta">Uru<span class="dot">•</span>それを愛と呼ぶなら<span class="dot">•</span>ドラマ「マイファミリー」主題歌</div>
-    <button class="play-full-btn" id="playFullBtn" data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3" title="Play the complete song">
-      <span class="pf-icon">▶</span>
-      <span class="pf-text">Play full song</span>
-    </button>
+    <div class="song-actions">
+      <button class="play-full-btn" id="playFullBtn"
+        data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3"
+        data-label-play="Play full song" data-label-pause="Pause full song"
+        title="Play the complete song">
+        <span class="pf-icon">▶</span>
+        <span class="pf-text">Play full song</span>
+      </button>
+      <button class="play-full-btn karaoke" id="playKaraokeBtn"
+        data-audio="Uru-Kareoke.mp3"
+        title="Play the karaoke version">
+        <span class="pf-icon">🎤</span>
+        <span class="pf-text">Karaoke</span>
+      </button>
+    </div>
   </div>
 
   <!-- ================= INTRO (instrumental) ================= -->
@@ -1292,20 +1322,23 @@
   speedRange.value = String(playbackRate);
   updateSpeedLabel();
 
-  /* Play the complete song from the title */
-  var fullBtn = document.getElementById("playFullBtn");
-  if (fullBtn) {
-    fullBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      playBlock(fullBtn, fullBtn.querySelector(".pf-icon"));
-      var fullText = fullBtn.querySelector(".pf-text");
-      if (fullText) {
-        fullText.textContent = fullBtn.classList.contains("playing")
-          ? "Pause full song"
-          : "Play full song";
-      }
-    });
-  }
+  /* Full song and karaoke: one handler for every title pill. A pill whose label
+     changes while playing carries data-label-play / data-label-pause. */
+  Array.prototype.forEach.call(
+    document.querySelectorAll(".play-full-btn"),
+    function (btn) {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        playBlock(btn, btn.querySelector(".pf-icon"));
+        var txt = btn.querySelector(".pf-text");
+        var playLabel = btn.getAttribute("data-label-play");
+        var pauseLabel = btn.getAttribute("data-label-pause");
+        if (txt && playLabel && pauseLabel) {
+          txt.textContent = btn.classList.contains("playing") ? pauseLabel : playLabel;
+        }
+      });
+    }
+  );
 
   /* stop everything when leaving the page */
   window.addEventListener('beforeunload', function() {
