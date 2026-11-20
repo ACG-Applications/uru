@@ -116,17 +116,21 @@
   }
 
   .header-inner{
-    max-width:900px;
+    /* Wide enough for the brand, all six controls and the badge on one line. */
+    max-width:1200px;
     margin:0 auto;
     padding:.6rem 1rem;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:.6rem .9rem;
-    flex-wrap:wrap;
+    gap:.5rem .7rem;
+    flex-wrap:nowrap;
   }
 
   .brand{
+    flex:0 1 auto;
+    min-width:0;
+    overflow:hidden;
     display:flex;
     align-items:baseline;
     gap:.45rem;
@@ -161,9 +165,18 @@
 .toggles{
     display:flex;
     gap:.4rem;
-    flex-wrap:wrap;
+    flex-wrap:nowrap;
     align-items:center;
+    /* Takes the middle of the row and gives space back first, so the badge on the
+       right is never pushed off screen. */
+    flex:1 1 auto;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    min-width:0;
   }
+
+  .toggles::-webkit-scrollbar{ display:none; }
 
   .toggle{
     font:inherit;
@@ -646,6 +659,30 @@
   @media (max-width:560px){
     .brand .mini-title{ max-width:54vw; font-size:.85rem; }
   }
+
+  /* ---- keep the header to a single line at every width ---- */
+  @media (max-width:1000px){
+    .toggle .tl{ display:none; }
+    .toggle{ padding:.52rem .6rem; }
+  }
+
+  @media (max-width:700px){
+    .speed-wrap label,
+    .speed-wrap .val{ display:none; }
+    .speed-wrap{ padding:.2rem .45rem; }
+    .speed-wrap input[type=range]{ width:78px; }
+    .toggle{ padding:.5rem .5rem; }
+  }
+
+  @media (max-width:480px){
+    .header-inner{ padding:.5rem .5rem; gap:.35rem .35rem; }
+    .toggles{ gap:.3rem; }
+    .toggle{ font-size:.88rem; padding:.42rem .38rem; }
+    .speed-wrap{ padding:.16rem .35rem; gap:.22rem; }
+    .speed-wrap input[type=range]{ width:54px; }
+    .brand{ font-size:.85rem; gap:.3rem; }
+    .antonio-signature{ width:30px; height:30px; }
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -660,16 +697,16 @@
     </div>
 
     <div class="toggles">
-      <button class="toggle" id="themeBtn"  aria-pressed="false" title="Toggle Light / Dark mode">🌓 Light / Dark</button>
-      <button class="toggle" id="ttsBtn"    aria-pressed="false" title="Read Japanese aloud — click a line to hear it">🔊 TTS</button>
+      <button class="toggle" id="themeBtn"  aria-pressed="false" aria-label="Light / Dark mode" title="Toggle Light / Dark mode">🌓 <span class="tl">Light / Dark</span></button>
+      <button class="toggle" id="ttsBtn"    aria-pressed="false" aria-label="Text to speech" title="Read Japanese aloud — click a line to hear it">🔊 <span class="tl">TTS</span></button>
       <div class="speed-wrap" title="Playback speed for all audio blocks">
         <label for="speedRange">Speed</label>
         <input type="range" id="speedRange" min="0.5" max="1.5" step="0.05" value="1">
         <span class="val" id="speedVal">1.00×</span>
       </div>
-      <button class="toggle" id="enBtn"     aria-pressed="true"  title="Show / hide English translation">🌐 English</button>
-      <button class="toggle" id="furiBtn"   aria-pressed="true"  title="Show / hide furigana above kanji">あ Furigana</button>
-      <button class="toggle" id="sizeBtn"   aria-pressed="false" title="Increase font size &amp; weight">A⁺ Size / Weight</button>
+      <button class="toggle" id="enBtn"     aria-pressed="true" aria-label="English translation" title="Show / hide English translation">🌐 <span class="tl">English</span></button>
+      <button class="toggle" id="furiBtn"   aria-pressed="true" aria-label="Furigana" title="Show / hide furigana above kanji">あ <span class="tl">Furigana</span></button>
+      <button class="toggle" id="sizeBtn"   aria-pressed="false" aria-label="Text size and weight" title="Increase font size &amp; weight">A⁺ <span class="tl">Size / Weight</span></button>
     </div>
 
     <img class="antonio-signature" src="Antonio.png" alt="ACG Applications" width="34" height="34" />
