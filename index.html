@@ -628,6 +628,24 @@
   @media print{
     .player-bar{ display:none !important; }
   }
+
+  /* The song title, docked in the sticky header once the real one scrolls away. */
+  .brand .mini-title{
+    display:none;
+    font-weight:700;
+    font-size:.92rem;
+    letter-spacing:.02em;
+    max-width:46vw;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  body.title-docked .brand .name{ display:none; }
+  body.title-docked .brand .mini-title{ display:inline-block; }
+
+  @media (max-width:560px){
+    .brand .mini-title{ max-width:54vw; font-size:.85rem; }
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -638,6 +656,7 @@
     <div class="brand">
       <span class="leaf">🍁</span>
       <span class="name">Uru</span>
+      <span class="mini-title" id="miniTitle">愛と呼ぶなら</span>
     </div>
 
     <div class="toggles">
@@ -1551,6 +1570,25 @@
     pauseCurrent();
     stopSpeaking();
   });
+
+  /* Dock the song title in the header once the real one leaves the viewport. A passive
+     scroll listener is used rather than IntersectionObserver: the observer settles on a
+     later frame and cannot be exercised in a headless test, and this is cheap at 18
+     blocks of content. */
+  (function () {
+    var songTitle = document.querySelector(".song-title");
+    if (!songTitle) return;
+    var docked = null;
+    var syncTitle = function () {
+      var now = songTitle.getBoundingClientRect().bottom < 4;
+      if (now === docked) return;
+      docked = now;
+      document.body.classList.toggle("title-docked", now);
+    };
+    window.addEventListener("scroll", syncTitle, { passive: true });
+    window.addEventListener("resize", syncTitle);
+    syncTitle();
+  })();
 
   buildPlayerBar();
   updatePlayerBar();
