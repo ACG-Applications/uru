@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uru-app-v5';
+const CACHE_NAME = 'uru-app-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -15,7 +15,7 @@ const ASSETS_TO_CACHE = [
   './08.大馬鹿者だ.mp3',
   './09.この幼さも.mp3',
   './10.くれたこと.mp3',
-  './11.迎えにいくから.mp3',
+  './11. 迎えにいくから.mp3',
   './12.伝えにいくよ.mp3',
   './13.たった一つの輝き.mp3',
   './14.揺るがない形になって.mp3',

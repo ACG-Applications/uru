@@ -510,11 +510,14 @@
   }
 
   /* Title actions: full song, then karaoke beneath it */
+  /* The three title pills sit on one line and wrap only if the screen is too narrow. */
   .song-actions{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    flex-wrap:wrap;
     align-items:center;
-    gap:.55rem;
+    justify-content:center;
+    gap:.5rem;
     margin-top:.9rem;
   }
 
@@ -527,6 +530,24 @@
   .play-full-btn.karaoke.playing{
     background:#4a7ba6;
     color:#fff;
+  }
+
+  .play-full-btn.vocals{
+    border-color:#3f7f5f;
+    color:#356e52;
+  }
+
+  .play-full-btn.vocals:hover,
+  .play-full-btn.vocals.playing{
+    background:#3f7f5f;
+    color:#fff;
+  }
+
+  /* Keep all three pills on a single line on a phone. */
+  @media (max-width:560px){
+    .song-actions{ gap:.4rem; margin-top:.7rem; }
+    .play-full-btn{ font-size:.78rem; padding:.4rem .72rem; gap:.32rem; }
+    .play-full-btn .pf-icon{ font-size:.85rem; }
   }
 </style>
 </head>
@@ -574,10 +595,16 @@
         <span class="pf-text">Play full song</span>
       </button>
       <button class="play-full-btn karaoke" id="playKaraokeBtn"
-        data-audio="Uru-Kareoke.mp3"
+        data-audio="Uru-Karaoke.mp3"
         title="Play the karaoke version">
         <span class="pf-icon">🎤</span>
         <span class="pf-text">Karaoke</span>
+      </button>
+      <button class="play-full-btn vocals" id="playVocalsBtn"
+        data-audio="Uru-Vocals.mp3"
+        title="Play the vocal track">
+        <span class="pf-icon">🎙</span>
+        <span class="pf-text">Vocals</span>
       </button>
     </div>
   </div>
@@ -869,7 +896,7 @@
   </div>
 
   <!-- ================= BLOCK 11 ================= -->
-  <div class="audio-block" data-audio="11.迎えにいくから.mp3">
+  <div class="audio-block" data-audio="11. 迎えにいくから.mp3">
     <div class="audio-header">
       <button class="play-btn" aria-label="Play or pause block 11">▶</button>
       <button class="loop-btn" aria-label="Toggle loop for block 11" aria-pressed="false" title="Loop this block">🔁</button>
