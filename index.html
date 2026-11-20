@@ -444,8 +444,10 @@
   /* ---- furigana ---- */
   ruby{ruby-position:over;}
   rt{
-    font-size:.48em;
-    font-weight:400;
+    /* 0.48em at 400 was ~9px on a desktop and read as a faint smudge; 0.62em at
+       600 gives roughly 12px there and still sits clear of the line above. */
+    font-size:.62em;
+    font-weight:600;
     letter-spacing:0;
     color: var(--furi-text);
     line-height:1.1;
