@@ -549,6 +549,85 @@
     .play-full-btn{ font-size:.78rem; padding:.4rem .72rem; gap:.32rem; }
     .play-full-btn .pf-icon{ font-size:.85rem; }
   }
+
+  /* ---- floating player bar: only while a track is active ---- */
+  .player-bar{
+    position:fixed;
+    left:50%;
+    bottom:calc(.9rem + env(safe-area-inset-bottom, 0px));
+    transform:translateX(-50%) translateY(130%);
+    z-index:60;
+    display:flex;
+    align-items:center;
+    gap:.55rem;
+    max-width:calc(100% - 1.4rem);
+    padding:.45rem .5rem .45rem .85rem;
+    border-radius:999px;
+    background:rgba(255,255,255,.96);
+    border:1px solid var(--block-border);
+    box-shadow:0 8px 24px rgba(0,0,0,.14);
+    -webkit-backdrop-filter:blur(8px);
+    backdrop-filter:blur(8px);
+    opacity:0;
+    pointer-events:none;
+    transition:transform .22s ease, opacity .22s ease;
+  }
+
+  .player-bar.show{
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+
+  .player-bar .pb-dot{
+    flex:0 0 auto;
+    width:.5rem;
+    height:.5rem;
+    border-radius:50%;
+    background:var(--accent);
+  }
+
+  .player-bar .pb-label{
+    flex:1 1 auto;
+    min-width:0;
+    font-size:.82rem;
+    font-weight:600;
+    color:var(--text-main);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .player-bar button{
+    flex:0 0 auto;
+    width:2rem;
+    height:2rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:none;
+    border-radius:50%;
+    background:transparent;
+    color:var(--accent);
+    font-size:.95rem;
+    cursor:pointer;
+    transition:background .15s;
+  }
+
+  .player-bar button:hover{ background:rgba(224,96,60,.12); }
+
+  .player-bar .pb-stop{
+    color:#8a7e6e;
+    font-size:1rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .player-bar{ transition:none; }
+  }
+
+  @media print{
+    .player-bar{ display:none !important; }
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -588,6 +667,7 @@
     <div class="meta">Uru<span class="dot">•</span>それを愛と呼ぶなら<span class="dot">•</span>ドラマ「マイファミリー」主題歌</div>
     <div class="song-actions">
       <button class="play-full-btn" id="playFullBtn"
+        data-name="Full song"
         data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3"
         data-label-play="Play full song" data-label-pause="Pause full song"
         title="Play the complete song">
@@ -595,12 +675,14 @@
         <span class="pf-text">Play full song</span>
       </button>
       <button class="play-full-btn karaoke" id="playKaraokeBtn"
+        data-name="Karaoke"
         data-audio="Uru-Karaoke.mp3"
         title="Play the karaoke version">
         <span class="pf-icon">🎤</span>
         <span class="pf-text">Karaoke</span>
       </button>
       <button class="play-full-btn vocals" id="playVocalsBtn"
+        data-name="Vocals"
         data-audio="Uru-Vocals.mp3"
         title="Play the vocal track">
         <span class="pf-icon">🎙</span>
@@ -1240,6 +1322,7 @@
     currentAudio = null;
     currentBlock = null;
     currentPlayBtn = null;
+    updatePlayerBar();
   }
 
   function pauseCurrent() {
@@ -1287,6 +1370,8 @@
     block.classList.add('playing');
     playBtn.textContent = '❚❚';
 
+    audio.addEventListener('play', updatePlayerBar);
+    audio.addEventListener('pause', updatePlayerBar);
     audio.addEventListener('ended', function () {
       if (currentAudio === audio) resetUI();
     });
@@ -1300,6 +1385,7 @@
     });
 
     var playPromise = audio.play();
+    updatePlayerBar();
     if (playPromise && typeof playPromise.catch === 'function') {
       playPromise.catch(function () {
         playBtn.textContent = '▶';
@@ -1349,6 +1435,99 @@
   speedRange.value = String(playbackRate);
   updateSpeedLabel();
 
+  /* ---- floating player bar ---- */
+  var playerBar = null;
+  var pbLabel = null;
+  var pbToggle = null;
+
+  // A stable name for whatever is playing: pills carry data-name, blocks use their
+  // own label. (The pill text toggles between Play/Pause, so it is no use here.)
+  function activeTrackLabel() {
+    if (!currentBlock) return "";
+    var name = currentBlock.getAttribute("data-name");
+    if (name) return name;
+    var lab = currentBlock.querySelector(".audio-label");
+    if (lab) return lab.textContent.replace(/\s+/g, " ").trim();
+    return "";
+  }
+
+  function updatePlayerBar() {
+    if (!playerBar) return;
+    var active = !!currentAudio;
+    var playing = active && !currentAudio.paused;
+
+    // The three title pills mirror the real transport state, so pausing from the bar
+    // also puts them back to "Play ..." instead of leaving a stale label.
+    Array.prototype.forEach.call(
+      document.querySelectorAll(".play-full-btn"),
+      function (btn) {
+        var mine = active && currentBlock === btn;
+        btn.classList.toggle("playing", mine && playing);
+        var txt = btn.querySelector(".pf-text");
+        var playLabel = btn.getAttribute("data-label-play");
+        var pauseLabel = btn.getAttribute("data-label-pause");
+        if (txt && playLabel && pauseLabel) {
+          txt.textContent = mine && playing ? pauseLabel : playLabel;
+        }
+      }
+    );
+
+    if (active) {
+      if (pbLabel) pbLabel.textContent = activeTrackLabel();
+      if (pbToggle) {
+        pbToggle.textContent = playing ? "❚❚" : "▶";
+        pbToggle.setAttribute("aria-label", playing ? "Pause" : "Resume");
+      }
+    }
+    playerBar.classList.toggle("show", active);
+  }
+
+  function buildPlayerBar() {
+    playerBar = document.createElement("div");
+    playerBar.className = "player-bar";
+    playerBar.setAttribute("role", "region");
+    playerBar.setAttribute("aria-label", "Now playing");
+
+    var dot = document.createElement("span");
+    dot.className = "pb-dot";
+    dot.setAttribute("aria-hidden", "true");
+
+    pbLabel = document.createElement("span");
+    pbLabel.className = "pb-label";
+
+    pbToggle = document.createElement("button");
+    pbToggle.type = "button";
+    pbToggle.textContent = "❚❚";
+    pbToggle.setAttribute("aria-label", "Pause");
+    pbToggle.addEventListener("click", function () {
+      if (!currentAudio) return;
+      if (currentAudio.paused) {
+        var p = currentAudio.play();
+        if (p && p.catch) p.catch(function () {});
+      } else {
+        currentAudio.pause();
+      }
+      updatePlayerBar();
+    });
+
+    var stopBtn = document.createElement("button");
+    stopBtn.type = "button";
+    stopBtn.className = "pb-stop";
+    stopBtn.textContent = "✕";
+    stopBtn.setAttribute("aria-label", "Stop");
+    stopBtn.title = "Stop";
+    stopBtn.addEventListener("click", function () {
+      pauseCurrent();
+      updatePlayerBar();
+    });
+
+    playerBar.appendChild(dot);
+    playerBar.appendChild(pbLabel);
+    playerBar.appendChild(pbToggle);
+    playerBar.appendChild(stopBtn);
+    document.body.appendChild(playerBar);
+  }
+
   /* Full song and karaoke: one handler for every title pill. A pill whose label
      changes while playing carries data-label-play / data-label-pause. */
   Array.prototype.forEach.call(
@@ -1372,6 +1551,9 @@
     pauseCurrent();
     stopSpeaking();
   });
+
+  buildPlayerBar();
+  updatePlayerBar();
 
   /* Some browsers need a user gesture to load voices */
   document.addEventListener('click', function once() {
