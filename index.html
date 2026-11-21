@@ -1359,6 +1359,11 @@
       navigator.serviceWorker.register('./sw.js')
         .then(registration => {
           console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          // Ask for durable storage so the ~74 MB media cache is not evicted when the
+          // device runs low on space - an eviction means downloading it all again.
+          if (navigator.storage && navigator.storage.persist) {
+            navigator.storage.persist().catch(function () {});
+          }
         })
         .catch(err => {
           console.log('ServiceWorker registration failed: ', err);
