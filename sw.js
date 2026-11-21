@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uru-app-v10';
+const CACHE_NAME = 'uru-app-v11';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

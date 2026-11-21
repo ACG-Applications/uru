@@ -696,6 +696,100 @@
   .play-btn.vocals-btn:hover{
     background:rgba(63,127,95,.12);
   }
+
+  /* ---- Video pill + side panel ---- */
+  .play-full-btn.video{
+    border-color:#7d5ba6;
+    color:#6a4a91;
+  }
+
+  .play-full-btn.video:hover,
+  .play-full-btn.video[aria-pressed="true"]{
+    background:#7d5ba6;
+    color:#fff;
+  }
+
+  /* The panel sits beside the lyrics: right half on a wide screen, bottom on a phone. */
+  .video-panel{
+    position:fixed;
+    right:0;
+    top:var(--header-h, 54px);
+    bottom:0;
+    width:var(--video-w, 46vw);
+    z-index:45;
+    display:none;
+    flex-direction:column;
+    background:#000;
+    box-shadow:-6px 0 24px rgba(0,0,0,.18);
+  }
+
+  body.video-open .video-panel{ display:flex; }
+
+  .video-head{
+    flex:0 0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:.5rem;
+    padding:.4rem .5rem .4rem .8rem;
+    background:#141414;
+    color:#f4f1ec;
+    font-size:.8rem;
+    font-weight:600;
+  }
+
+  .video-close{
+    flex:0 0 auto;
+    width:1.9rem;
+    height:1.9rem;
+    border:none;
+    border-radius:50%;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    font-size:.95rem;
+    cursor:pointer;
+  }
+
+  .video-close:hover{ background:rgba(255,255,255,.24); }
+
+  .video-panel video{
+    flex:1 1 auto;
+    width:100%;
+    min-height:0;
+    object-fit:contain;
+    background:#000;
+  }
+
+  /* Wide screens: give the lyrics the left column instead of hiding them behind the video. */
+  @media (min-width:900px){
+    body.video-open main{
+      width:calc(100% - var(--video-w, 46vw));
+      max-width:none;
+      margin:0;
+      padding-left:2rem;
+      padding-right:1.2rem;
+    }
+    body.video-open .line .en{ display:none; }
+    body.video-open .line .jp{ flex:1 1 100%; }
+  }
+
+  /* Phones: the video docks at the bottom, lyrics scroll above it. */
+  @media (max-width:899px){
+    .video-panel{
+      top:auto;
+      left:0;
+      width:auto;
+      height:42vh;
+    }
+    body.video-open main{ padding-bottom:46vh; }
+  }
+
+  /* One docked player is enough; the MP3 bar steps aside for the video. */
+  body.video-open .player-bar{ display:none; }
+
+  @media print{
+    .video-panel{ display:none !important; }
+  }
 </style>
 </head>
 <body class="show-furi show-en">
@@ -756,6 +850,13 @@
         title="Play the vocal track">
         <span class="pf-icon">🎙</span>
         <span class="pf-text">Vocals</span>
+      </button>
+      <button class="play-full-btn video" id="videoBtn"
+        data-video="URU-Karaoke-Vid.mp4"
+        aria-pressed="false"
+        title="Watch the karaoke video beside the lyrics">
+        <span class="pf-icon">🎬</span>
+        <span class="pf-text">Video</span>
       </button>
     </div>
   </div>
@@ -1675,6 +1776,95 @@
     window.addEventListener("resize", syncTitle);
     syncTitle();
   })();
+
+  /* ---- karaoke video panel ---- */
+  var videoPanel = null;
+  var karaokeVideo = null;
+
+  function syncPanelMetrics() {
+    var header = document.querySelector("header");
+    if (header) {
+      document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
+    }
+    var w = Math.max(320, Math.min(640, Math.round(window.innerWidth * 0.46)));
+    document.documentElement.style.setProperty("--video-w", w + "px");
+  }
+
+  function buildVideoPanel() {
+    videoPanel = document.createElement("div");
+    videoPanel.className = "video-panel";
+    videoPanel.id = "videoPanel";
+    videoPanel.setAttribute("aria-hidden", "true");
+
+    var head = document.createElement("div");
+    head.className = "video-head";
+    var title = document.createElement("span");
+    title.textContent = "🎬 Karaoke video";
+    var closeBtn = document.createElement("button");
+    closeBtn.type = "button";
+    closeBtn.className = "video-close";
+    closeBtn.textContent = "✕";
+    closeBtn.setAttribute("aria-label", "Close video");
+    closeBtn.addEventListener("click", closeVideo);
+    head.appendChild(title);
+    head.appendChild(closeBtn);
+
+    karaokeVideo = document.createElement("video");
+    karaokeVideo.src = "URU-Karaoke-Vid.mp4";
+    karaokeVideo.controls = true;
+    karaokeVideo.playsInline = true;
+    karaokeVideo.preload = "none";   // 47MB: only fetch when asked for
+    karaokeVideo.setAttribute("playsinline", "");
+
+    videoPanel.appendChild(head);
+    videoPanel.appendChild(karaokeVideo);
+    document.body.appendChild(videoPanel);
+  }
+
+  function openVideo() {
+    if (!videoPanel) return;
+    // the video carries its own audio, so stop any MP3 first
+    pauseCurrent();
+    syncPanelMetrics();
+    document.body.classList.add("video-open");
+    videoPanel.setAttribute("aria-hidden", "false");
+    var btn = document.getElementById("videoBtn");
+    if (btn) btn.setAttribute("aria-pressed", "true");
+    if (karaokeVideo) {
+      var p = karaokeVideo.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+  }
+
+  function closeVideo() {
+    if (!videoPanel) return;
+    document.body.classList.remove("video-open");
+    videoPanel.setAttribute("aria-hidden", "true");
+    var btn = document.getElementById("videoBtn");
+    if (btn) btn.setAttribute("aria-pressed", "false");
+    if (karaokeVideo) karaokeVideo.pause();
+  }
+
+  function toggleVideo() {
+    if (document.body.classList.contains("video-open")) closeVideo();
+    else openVideo();
+  }
+
+  buildVideoPanel();
+  syncPanelMetrics();
+
+  var videoBtn = document.getElementById("videoBtn");
+  if (videoBtn) {
+    videoBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      toggleVideo();
+    });
+  }
+
+  window.addEventListener("resize", syncPanelMetrics);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeVideo();
+  });
 
   buildPlayerBar();
   updatePlayerBar();
