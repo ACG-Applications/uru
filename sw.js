@@ -1,4 +1,4 @@
-const CACHE_NAME = 'uru-app-v11';
+const CACHE_NAME = 'uru-app-v12';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -42,6 +42,9 @@ const ASSETS_TO_CACHE = [
     './Uru-Karaoke.mp3',
     './Uru-Vocals.mp3',
     './瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3',
+    // ---- karaoke video (47.5 MB): offline playback ----
+    './URU-Karaoke-Vid.mp4',
+
 ];
 
 // Install event: cache all assets
@@ -71,10 +74,41 @@ self.addEventListener('activate', (event) => {
 });
 
 // Fetch event: serve from cache first, fallback to network
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
-  );
+// <video> asks for byte ranges, so a cached full response is answered with a 206 slice.
+// Without this the browser gets a 200 for a range request and seeking misbehaves offline.
+async function serveFromCacheOrNetwork(request) {
+  const cached = await caches.match(request, { ignoreVary: true });
+  const range = request.headers.get("range");
+
+  if (!cached) return fetch(request);
+  if (!range) return cached;
+
+  try {
+    const buffer = await cached.arrayBuffer();
+    const match = /bytes=(\d*)-(\d*)/.exec(range);
+    const start = match && match[1] ? parseInt(match[1], 10) : 0;
+    let end = match && match[2] ? parseInt(match[2], 10) : buffer.byteLength - 1;
+    if (end >= buffer.byteLength) end = buffer.byteLength - 1;
+    if (start > end) start = end;
+    const slice = buffer.slice(start, end + 1);
+
+    return new Response(slice, {
+      status: 206,
+      statusText: "Partial Content",
+      headers: {
+        "Content-Type": cached.headers.get("Content-Type") || "video/mp4",
+        "Content-Range": "bytes " + start + "-" + end + "/" + buffer.byteLength,
+        "Content-Length": String(slice.byteLength),
+        "Accept-Ranges": "bytes",
+      },
+    });
+  } catch (e) {
+    return cached;
+  }
+}
+
+self.addEventListener("fetch", (event) => {
+  const request = event.request;
+  if (request.method !== "GET") return;
+  event.respondWith(serveFromCacheOrNetwork(request));
 });
