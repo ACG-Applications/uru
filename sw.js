@@ -26,7 +26,7 @@
 //
 // ============================================================
 
-const SHELL_CACHE = 'uru-shell-v14';   // bump on every release
+const SHELL_CACHE = 'uru-shell-v15';   // bump on every release
 const MEDIA_CACHE = 'uru-media-v1';    // bump only when media changes
 const KEEP_CACHES = [SHELL_CACHE, MEDIA_CACHE];
 

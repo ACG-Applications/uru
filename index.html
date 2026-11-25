@@ -1001,6 +1001,35 @@
   .toggle.voice-btn{ border-color:#3f7f5f; }
   .toggle.voice-btn[data-mode="tts"]{ border-color:#4a7ba6; }
   .toggle.voice-btn[data-mode="off"]{ border-color: var(--btn-border); }
+
+  /* Play-through button: runs the block's recorded sentences one after another. */
+  .seq-btn {
+    flex: 0 0 auto;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--btn-border);
+    background: var(--btn-bg);
+    color: var(--btn-text);
+    font-size: 0.72rem;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    line-height: 1;
+    padding: 0;
+    user-select: none;
+  }
+
+  .seq-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  .seq-btn[aria-pressed="true"] {
+    border-color: var(--accent);
+    color: #fff;
+    background: var(--accent);
+  }
 </style>
   </head>
   <body class="show-furi show-en">
@@ -1168,6 +1197,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 01"
             aria-pressed="false"
@@ -1207,6 +1243,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1277,6 +1320,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1362,6 +1412,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 04"
             aria-pressed="false"
@@ -1419,6 +1476,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 05"
             aria-pressed="false"
@@ -1473,6 +1537,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1535,6 +1606,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 07"
             aria-pressed="false"
@@ -1588,6 +1666,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1680,6 +1765,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 09"
             aria-pressed="false"
@@ -1740,6 +1832,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 10"
             aria-pressed="false"
@@ -1789,6 +1888,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1847,6 +1953,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 12"
             aria-pressed="false"
@@ -1899,6 +2012,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -1976,6 +2096,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 14"
             aria-pressed="false"
@@ -2037,6 +2164,13 @@
             🎤
           </button>
           <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
+          </button>
+          <button
             class="loop-btn"
             aria-label="Toggle loop for block 15"
             aria-pressed="false"
@@ -2085,6 +2219,13 @@
             title="Vocals only — sing along"
           >
             🎤
+          </button>
+          <button
+            class="seq-btn"
+            aria-pressed="false"
+            title="Play this block's sentences in order - read along"
+          >
+            ▶▶
           </button>
           <button
             class="loop-btn"
@@ -2345,6 +2486,7 @@ function cycleVoiceMode() {
   savePref("voiceMode", voiceMode);
   if (voiceMode === "off") {
     stopSpeaking();
+    stopLineSequence();
     stopLineAudio();
     updatePlayerBar();
   }
@@ -2371,7 +2513,7 @@ function stopLineAudio() {
   lineLabel = "";
 }
 
-function playLineRecording(el) {
+function playLineRecording(el, onDone) {
   var url = lineRecordingUrl(el);
   if (!url) return false;
 
@@ -2392,9 +2534,14 @@ function playLineRecording(el) {
   audio.addEventListener("play", updatePlayerBar);
   audio.addEventListener("pause", updatePlayerBar);
   audio.addEventListener("ended", function () {
-    if (lineAudio === audio) { lineAudio = null; lineLabel = ""; }
+    if (lineAudio === audio) {
+      lineAudio = null;
+      // during a read-along the label stays, so the bar does not flicker off
+      if (typeof onDone !== "function") lineLabel = "";
+    }
     if (currentLine === el) clearHighlight();
     updatePlayerBar();
+    if (typeof onDone === "function") onDone();
   });
   audio.addEventListener("error", function () {
     // no recording for this line - fall back to the computer voice
@@ -2408,6 +2555,80 @@ function playLineRecording(el) {
   if (p && p.catch) p.catch(function () {});
   updatePlayerBar();
   return true;
+}
+
+/* ---------- play a whole block, one sentence at a time ---------- */
+var seqState = null;
+
+function stopLineSequence() {
+  if (seqState) {
+    if (seqState.btn) {
+      seqState.btn.setAttribute("aria-pressed", "false");
+    }
+    seqState = null;
+  }
+  stopLineAudio();
+  clearHighlight();
+  updatePlayerBar();
+}
+
+function stepLineSequence() {
+  var s = seqState;
+  if (!s) return;
+
+  if (s.i >= s.lines.length) {
+    stopLineSequence();
+    return;
+  }
+
+  var el = s.lines[s.i];
+  s.i++;
+
+  // keep the line being read in view, without yanking the page if it already is
+  var box = el.getBoundingClientRect();
+  if (box.top < 70 || box.bottom > window.innerHeight - 90) {
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ block: "center", behavior: reduced ? "auto" : "smooth" });
+  }
+
+  var ok = playLineRecording(el, function () {
+    // a short breath between sentences
+    setTimeout(stepLineSequence, 380);
+  });
+
+  if (!ok) {
+    setTimeout(stepLineSequence, 0);
+    return;
+  }
+
+  if (seqState === s) {
+    lineLabel = s.name + " · " + s.i + "/" + s.lines.length;
+    updatePlayerBar();
+  }
+}
+
+function startLineSequence(block, btn) {
+  if (seqState && seqState.btn === btn) {
+    stopLineSequence();
+    return;
+  }
+
+  stopLineSequence();
+  pauseCurrent();
+  stopSpeaking();
+
+  var lines = Array.prototype.slice.call(block.querySelectorAll(".line[data-jp]"));
+  if (!lines.length) return;
+
+  var labelEl = block.querySelector(".audio-label");
+  seqState = {
+    lines: lines,
+    i: 0,
+    btn: btn,
+    name: labelEl ? labelEl.textContent.replace(/\s+/g, " ").trim() : "Block",
+  };
+  btn.setAttribute("aria-pressed", "true");
+  stepLineSequence();
 }
 
 /* TTS toggle button */
@@ -2426,6 +2647,7 @@ function playLineRecording(el) {
         })();
         Array.prototype.forEach.call(speakables, function (el) {
           el.addEventListener("click", function () {
+            if (seqState) stopLineSequence();
             if (voiceMode === "off") return;
 
             if (voiceMode === "rec") {
@@ -2485,6 +2707,7 @@ function playLineRecording(el) {
         function playBlock(block, playBtn, srcOverride) {
           var src = srcOverride || block.getAttribute("data-audio");
           if (!src) return;
+          stopLineSequence();
 
           // If this is the currently playing block, toggle pause
           if (
@@ -2619,8 +2842,11 @@ function playLineRecording(el) {
         function updatePlayerBar() {
           if (!playerBar) return;
           var media = currentAudio || lineAudio;
-          var active = !!media;
-          var playing = active && !media.paused;
+          var seqActive = !!seqState;
+          var active = !!media || seqActive;
+          var playing = seqActive
+            ? !!(lineAudio && !lineAudio.paused)
+            : !!(media && !media.paused);
 
           // The three title pills mirror the real transport state, so pausing from the bar
           // also puts them back to "Play ..." instead of leaving a stale label.
@@ -2685,6 +2911,7 @@ function playLineRecording(el) {
           stopBtn.title = "Stop";
           stopBtn.addEventListener("click", function () {
             pauseCurrent();
+            stopLineSequence();
             stopLineAudio();
             clearHighlight();
             updatePlayerBar();
@@ -2696,6 +2923,21 @@ function playLineRecording(el) {
           playerBar.appendChild(stopBtn);
           document.body.appendChild(playerBar);
         }
+
+        /* Play-through buttons: read each block sentence by sentence. */
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".seq-btn"),
+          function (btn) {
+            var block = btn.closest(".audio-block");
+            var labelEl = block ? block.querySelector(".audio-label") : null;
+            var name = labelEl ? labelEl.textContent.replace(/\s+/g, " ").trim() : "this block";
+            btn.setAttribute("aria-label", "Play the sentences of " + name + " in order");
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              startLineSequence(block, btn);
+            });
+          },
+        );
 
         /* Vocals-only buttons: same block, different file. */
         Array.prototype.forEach.call(
@@ -2811,6 +3053,7 @@ function playLineRecording(el) {
           if (!videoPanel) return;
           // the video carries its own audio, so stop any MP3 first
           pauseCurrent();
+          stopLineSequence();
           syncPanelMetrics();
           document.body.classList.add("video-open");
           videoPanel.setAttribute("aria-hidden", "false");
