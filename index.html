@@ -1,1885 +1,2873 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Uru — それを愛と呼ぶなら</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Uru — それを愛と呼ぶなら</title>
 
-<!-- PWA Meta Tags -->
-<meta name="theme-color" content="#e0603c">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Uru">
-<link rel="manifest" href="./manifest.json">
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#e0603c" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Uru" />
+    <link rel="manifest" href="./manifest.json" />
 
-<style>
-  *{box-sizing:border-box;}
+    <style>
+      * {
+        box-sizing: border-box;
+      }
 
-  html{font-size:16px;}
+      html {
+        font-size: 16px;
+      }
 
-  /* ============ THEME VARIABLES ============ */
-  :root {
-    /* Default: LIGHT THEME (Bright White Pills) */
-    --bg-base: #f4f4f4;
-    --bg-gradient-1: transparent;
-    --bg-gradient-2: transparent;
-    --text-main: #222;
-    
-    --block-bg: #ffffff;
-    --block-border: rgba(0,0,0,0.08);
-    --block-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    
-    --jp-text: #000000;
-    --jp-weight: 700;
-    --en-text: #1a365d; /* Dark blue */
-    --furi-text: #8b0000; /* Dark red */
-    
-    --header-bg: rgba(244,244,244,0.85);
-    --header-border: rgba(0,0,0,0.08);
-    --header-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    
-    --btn-bg: #ffffff;
-    --btn-border: rgba(0,0,0,0.15);
-    --btn-text: #333;
-    --btn-hover-bg: #f0f0f0;
-    
-    --accent: #e0603c;
-    --accent-light: #f0a06a;
-    --line-hover: rgba(224,96,60,0.08);
-    --line-speaking: rgba(224,96,60,0.15);
-    
-    --divider-color: rgba(224,96,60,0.3);
-    --meta-text: #666;
-    --audio-label: #555;
-    --audio-label-strong: #111;
-  }
+      /* ============ THEME VARIABLES ============ */
+      :root {
+        /* Default: LIGHT THEME (Bright White Pills) */
+        --bg-base: #f4f4f4;
+        --bg-gradient-1: transparent;
+        --bg-gradient-2: transparent;
+        --text-main: #222;
 
-  body.dark-mode {
-    /* DARK THEME (Original Colors) */
-    --bg-base: #12100f;
-    --bg-gradient-1: radial-gradient(1200px 600px at 12% -10%, #2b1613 0%, transparent 60%);
-    --bg-gradient-2: radial-gradient(900px 500px at 92% 0%, #251a12 0%, transparent 55%);
-    --text-main: #efe9e3;
-    
-    --block-bg: rgba(255,255,255,.02);
-    --block-border: rgba(224,96,60,.22);
-    --block-shadow: none;
-    
-    --jp-text: #efe9e3;
-    --jp-weight: 400;
-    --en-text: #c7b9ae;
-    --furi-text: #e79a7f;
-    
-    --header-bg: rgba(18,16,15,.82);
-    --header-border: rgba(224,96,60,.28);
-    --header-shadow: 0 6px 24px rgba(0,0,0,.45);
-    
-    --btn-bg: rgba(255,255,255,.05);
-    --btn-border: rgba(255,255,255,.14);
-    --btn-text: #c9bcb2;
-    --btn-hover-bg: transparent;
-    
-    --line-hover: rgba(224,96,60,.09);
-    --line-speaking: rgba(224,96,60,.16);
-    
-    --divider-color: rgba(224,96,60,.55);
-    --meta-text: #8d8078;
-    --audio-label: #a8988c;
-    --audio-label-strong: #e9ded6;
-  }
+        --block-bg: #ffffff;
+        --block-border: rgba(0, 0, 0, 0.08);
+        --block-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
 
-  /* ============ BASE STYLES ============ */
-  body{
-    margin:0;
-    background-color: var(--bg-base);
-    background-image: var(--bg-gradient-1), var(--bg-gradient-2);
-    color: var(--text-main);
-    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP",
-                system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    line-height:1.9;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    transition: background .3s, color .3s;
-  }
+        --jp-text: #000000;
+        --jp-weight: 700;
+        --en-text: #1a365d; /* Dark blue */
+        --furi-text: #8b0000; /* Dark red */
 
-  /* ============ STICKY HEADER ============ */
-  header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background: var(--header-bg);
-    backdrop-filter:blur(12px) saturate(150%);
-    -webkit-backdrop-filter:blur(12px) saturate(150%);
-    border-bottom:1px solid var(--header-border);
-    box-shadow: var(--header-shadow);
-    transition: background .3s, border-color .3s;
-  }
+        --header-bg: rgba(244, 244, 244, 0.85);
+        --header-border: rgba(0, 0, 0, 0.08);
+        --header-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 
-  .header-inner{
-    /* Wide enough for the brand, all six controls and the badge on one line. */
-    max-width:1200px;
-    margin:0 auto;
-    padding:.6rem 1rem;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:.5rem .7rem;
-    flex-wrap:nowrap;
-  }
+        --btn-bg: #ffffff;
+        --btn-border: rgba(0, 0, 0, 0.15);
+        --btn-text: #333;
+        --btn-hover-bg: #f0f0f0;
 
-  .brand{
-    flex:0 1 auto;
-    min-width:0;
-    overflow:hidden;
-    display:flex;
-    align-items:baseline;
-    gap:.45rem;
-    font-size:.95rem;
-    letter-spacing:.04em;
-    color: var(--text-main);
-    white-space:nowrap;
-  }
-  .brand .leaf{font-size:1.05rem;}
-  .brand .name{
-    font-weight:700;
-    background:linear-gradient(90deg, var(--accent), var(--accent-light));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
+        --accent: #e0603c;
+        --accent-light: #f0a06a;
+        --line-hover: rgba(224, 96, 60, 0.08);
+        --line-speaking: rgba(224, 96, 60, 0.15);
 
-  /* Brand mark (top right) */
-.antonio-signature{
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  object-fit:cover;
-  flex:0 0 auto;
-  align-self:center;
-  margin-left:auto;
-  background:var(--btn-bg);
-  border:1px solid var(--btn-border);
-  box-shadow:0 1px 4px rgba(0,0,0,.12);
+        --divider-color: rgba(224, 96, 60, 0.3);
+        --meta-text: #666;
+        --audio-label: #555;
+        --audio-label-strong: #111;
+      }
+
+      body.dark-mode {
+        /* DARK THEME (Original Colors) */
+        --bg-base: #12100f;
+        --bg-gradient-1: radial-gradient(
+          1200px 600px at 12% -10%,
+          #2b1613 0%,
+          transparent 60%
+        );
+        --bg-gradient-2: radial-gradient(
+          900px 500px at 92% 0%,
+          #251a12 0%,
+          transparent 55%
+        );
+        --text-main: #efe9e3;
+
+        --block-bg: rgba(255, 255, 255, 0.02);
+        --block-border: rgba(224, 96, 60, 0.22);
+        --block-shadow: none;
+
+        --jp-text: #efe9e3;
+        --jp-weight: 400;
+        --en-text: #c7b9ae;
+        --furi-text: #e79a7f;
+
+        --header-bg: rgba(18, 16, 15, 0.82);
+        --header-border: rgba(224, 96, 60, 0.28);
+        --header-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+
+        --btn-bg: rgba(255, 255, 255, 0.05);
+        --btn-border: rgba(255, 255, 255, 0.14);
+        --btn-text: #c9bcb2;
+        --btn-hover-bg: transparent;
+
+        --line-hover: rgba(224, 96, 60, 0.09);
+        --line-speaking: rgba(224, 96, 60, 0.16);
+
+        --divider-color: rgba(224, 96, 60, 0.55);
+        --meta-text: #8d8078;
+        --audio-label: #a8988c;
+        --audio-label-strong: #e9ded6;
+      }
+
+      /* ============ BASE STYLES ============ */
+      body {
+        margin: 0;
+        background-color: var(--bg-base);
+        background-image: var(--bg-gradient-1), var(--bg-gradient-2);
+        color: var(--text-main);
+        font-family:
+          "Hiragino Kaku Gothic ProN",
+          "Yu Gothic",
+          "Noto Sans JP",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.9;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+
+      /* ============ STICKY HEADER ============ */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: var(--header-bg);
+        backdrop-filter: blur(12px) saturate(150%);
+        -webkit-backdrop-filter: blur(12px) saturate(150%);
+        border-bottom: 1px solid var(--header-border);
+        box-shadow: var(--header-shadow);
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+      }
+
+      .header-inner {
+        /* Wide enough for the brand, all six controls and the badge on one line. */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0.6rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem 0.7rem;
+        flex-wrap: nowrap;
+      }
+
+      .brand {
+        flex: 0 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        display: flex;
+        align-items: baseline;
+        gap: 0.45rem;
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        color: var(--text-main);
+        white-space: nowrap;
+      }
+      .brand .leaf {
+        font-size: 1.05rem;
+      }
+      .brand .name {
+        font-weight: 700;
+        background: linear-gradient(90deg, var(--accent), var(--accent-light));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Brand mark (top right) */
+      .antonio-signature {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex: 0 0 auto;
+        align-self: center;
+        margin-left: auto;
+        background: var(--btn-bg);
+        border: 1px solid var(--btn-border);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+      }
+
+      .toggles {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: nowrap;
+        align-items: center;
+        /* Takes the middle of the row and gives space back first, so the badge on the
+       right is never pushed off screen. */
+        flex: 1 1 auto;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        min-width: 0;
+      }
+
+      .toggles::-webkit-scrollbar {
+        display: none;
+      }
+
+      .toggle {
+        font: inherit;
+        font-size: 0.78rem;
+        line-height: 1;
+        padding: 0.52rem 0.75rem;
+        border-radius: 999px;
+        border: 1px solid var(--btn-border);
+        background: var(--btn-bg);
+        color: var(--btn-text);
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          color 0.18s,
+          box-shadow 0.18s,
+          transform 0.1s;
+        user-select: none;
+      }
+      .toggle:hover {
+        color: var(--text-main);
+        border-color: var(--accent);
+        background: var(--btn-hover-bg);
+      }
+      .toggle:active {
+        transform: translateY(1px);
+      }
+      .toggle:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .toggle[aria-pressed="true"] {
+        background: linear-gradient(180deg, var(--accent), #b8432a);
+        border-color: var(--accent);
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(224, 96, 60, 0.18);
+      }
+
+      /* speed control */
+      .speed-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.72rem;
+        color: var(--btn-text);
+        background: var(--btn-bg);
+        border: 1px solid var(--btn-border);
+        border-radius: 999px;
+        padding: 0.2rem 0.55rem;
+        white-space: nowrap;
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+      }
+      .speed-wrap label {
+        letter-spacing: 0.04em;
+      }
+      .speed-wrap input[type="range"] {
+        width: 70px;
+        accent-color: var(--accent);
+        cursor: pointer;
+        height: 4px;
+      }
+      .speed-wrap .val {
+        min-width: 2.1em;
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      /* ============ CONTENT ============ */
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.6rem 1rem 7rem;
+      }
+
+      .song-head {
+        text-align: center;
+        padding: 0.5rem 0 1.6rem;
+        border-bottom: 1px solid var(--block-border);
+        margin-bottom: 1.6rem;
+      }
+
+      .song-title {
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem;
+        letter-spacing: 0.02em;
+        line-height: 2.4;
+      }
+
+      .meta {
+        font-size: 0.78rem;
+        color: var(--meta-text);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .meta .dot {
+        opacity: 0.4;
+        margin: 0 0.45rem;
+      }
+
+      .divider {
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.3em;
+        color: var(--divider-color);
+        margin: 1.6rem 0;
+        user-select: none;
+      }
+
+      /* ---- audio block ---- */
+      .audio-block {
+        margin: 2rem 0;
+        border: 1px solid var(--block-border);
+        border-radius: 14px;
+        background: var(--block-bg);
+        box-shadow: var(--block-shadow);
+        padding: 0.9rem 1.1rem 1.2rem;
+        transition:
+          border-color 0.25s,
+          box-shadow 0.25s,
+          background 0.3s;
+      }
+      .audio-block.playing {
+        border-color: var(--accent);
+        box-shadow:
+          0 0 0 4px rgba(224, 96, 60, 0.15),
+          var(--block-shadow);
+      }
+
+      .audio-header {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        flex-wrap: wrap;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px dashed var(--block-border);
+      }
+
+      .play-btn {
+        flex: 0 0 auto;
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.2s,
+          color 0.2s,
+          transform 0.12s,
+          box-shadow 0.2s;
+        line-height: 1;
+        padding: 0;
+      }
+      .play-btn:hover {
+        background: var(--accent);
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(224, 96, 60, 0.2);
+      }
+      .play-btn:active {
+        transform: scale(0.94);
+      }
+      .play-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .audio-block.playing .play-btn {
+        background: var(--accent);
+        color: #fff;
+        border-color: var(--accent);
+      }
+
+      /* loop toggle button */
+      .loop-btn {
+        flex: 0 0 auto;
+        width: 2.2rem;
+        height: 2.2rem;
+        border-radius: 8px;
+        border: 1px solid var(--btn-border);
+        background: var(--btn-bg);
+        color: var(--btn-text);
+        font-size: 0.95rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition:
+          background 0.18s,
+          border-color 0.18s,
+          color 0.18s,
+          box-shadow 0.18s,
+          transform 0.1s;
+        line-height: 1;
+        padding: 0;
+        user-select: none;
+      }
+      .loop-btn:hover {
+        color: var(--text-main);
+        border-color: var(--accent);
+      }
+      .loop-btn:active {
+        transform: translateY(1px);
+      }
+      .loop-btn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .loop-btn[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+        box-shadow: 0 0 0 3px rgba(224, 96, 60, 0.18);
+      }
+
+      .audio-label {
+        font-size: 0.82rem;
+        letter-spacing: 0.06em;
+        color: var(--audio-label);
+        font-variant-numeric: tabular-nums;
+      }
+      .audio-label strong {
+        color: var(--audio-label-strong);
+        font-weight: 600;
+      }
+
+      /* ---- lyric lines (two-column layout) ---- */
+      .line {
+        display: flex;
+        gap: 1.5rem;
+        padding: 0.15rem 0;
+        align-items: flex-start;
+        border-radius: 8px;
+        transition:
+          background 0.15s,
+          padding-left 0.15s;
+      }
+
+      /* TTS highlight styles */
+      body.tts-on .line {
+        cursor: pointer;
+        padding-left: 1.8rem;
+        position: relative;
+      }
+      body.tts-on .line::before {
+        content: "🔊";
+        position: absolute;
+        left: 0.15rem;
+        top: 0.45rem;
+        font-size: 0.8em;
+        opacity: 0.4;
+        transition:
+          opacity 0.15s,
+          transform 0.15s;
+      }
+      body.tts-on .line:hover {
+        background: var(--line-hover);
+      }
+      body.tts-on .line:hover::before {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+      body.tts-on .line.speaking {
+        background: var(--line-speaking);
+        box-shadow: inset 3px 0 0 var(--accent);
+      }
+      body.tts-on .line.speaking::before {
+        opacity: 1;
+      }
+
+      .line .jp {
+        flex: 1 1 50%;
+        min-width: 0;
+        font-size: 1.22rem;
+        letter-spacing: 0.012em;
+        line-height: 2.1;
+        color: var(--jp-text);
+        font-weight: var(--jp-weight);
+      }
+
+      .line .en {
+        flex: 1 1 50%;
+        min-width: 0;
+        display: none;
+        font-size: 1.05rem;
+        font-style: italic;
+        color: var(--en-text);
+        line-height: 1.8;
+        padding-top: 0.28rem;
+      }
+      body.show-en .line .en {
+        display: block;
+      }
+
+      /* Small adaptation for narrow screens to avoid squishing */
+      @media (max-width: 640px) {
+        .line {
+          flex-direction: column;
+          gap: 0;
+          padding: 0.25rem 0;
+        }
+        body.tts-on .line {
+          padding-left: 1.5rem;
+        }
+        .line .jp {
+          line-height: 1.8;
+        }
+        .line .en {
+          padding-top: 0;
+          padding-bottom: 0.2rem;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+        body:not(.show-en) .line {
+          padding: 0.15rem 0;
+        }
+      }
+
+      /* ---- furigana ---- */
+      ruby {
+        ruby-position: over;
+      }
+      rt {
+        /* 0.48em at 400 was ~9px on a desktop and read as a faint smudge; 0.62em at
+       600 gives roughly 12px there and still sits clear of the line above. */
+        font-size: 0.62em;
+        font-weight: 600;
+        letter-spacing: 0;
+        color: var(--furi-text);
+        line-height: 1.1;
+      }
+      body:not(.show-furi) rt {
+        display: none;
+      }
+
+      /* ---- font size / weight toggle ---- */
+      body.big .jp {
+        font-size: 1.62rem;
+        font-weight: 700;
+        line-height: 2.2;
+      }
+      body.big .en {
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+      body.big .song-title {
+        font-size: 2.05rem;
+      }
+
+      @media (max-width: 560px) {
+        .header-inner {
+          justify-content: center;
+        }
+        .toggle {
+          font-size: 0.72rem;
+          padding: 0.48rem 0.62rem;
+        }
+        .jp {
+          font-size: 1.12rem;
+        }
+        body.big .jp {
+          font-size: 1.4rem;
+        }
+        body.big .en {
+          font-size: 1.05rem;
+        }
+        .song-title {
+          font-size: 1.4rem;
+        }
+        .speed-wrap {
+          padding: 0.2rem 0.4rem;
+        }
+        .speed-wrap input[type="range"] {
+          width: 56px;
+        }
+        .audio-block {
+          padding: 0.7rem 0.8rem 1rem;
+        }
+        .play-btn {
+          width: 2.2rem;
+          height: 2.2rem;
+        }
+        .loop-btn {
+          width: 2rem;
+          height: 2rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* Full-song button under the title */
+      .play-full-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1.1rem;
+        border-radius: 999px;
+        border: 1px solid var(--accent);
+        background: transparent;
+        color: var(--accent);
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+
+      .play-full-btn:hover,
+      .play-full-btn.playing {
+        background: var(--accent);
+        color: #fff;
+      }
+
+      .play-full-btn .pf-icon {
+        font-size: 0.95rem;
+      }
+
+      /* Instrumental blocks carry no lyric lines, so their label is set apart */
+      .audio-block.instrumental .audio-label {
+        font-style: italic;
+        color: #8a7e6e;
+      }
+      .audio-block.instrumental .audio-header {
+        margin-bottom: 0;
+        padding-bottom: 0.2rem;
+        border-bottom: none;
+      }
+
+      /* Title actions: full song, then karaoke beneath it */
+      /* The three title pills sit on one line and wrap only if the screen is too narrow. */
+      .song-actions {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 0.9rem;
+      }
+
+      .play-full-btn.karaoke {
+        border-color: #4a7ba6;
+        color: #3a6a94;
+      }
+
+      .play-full-btn.karaoke:hover,
+      .play-full-btn.karaoke.playing {
+        background: #4a7ba6;
+        color: #fff;
+      }
+
+      .play-full-btn.vocals {
+        border-color: #3f7f5f;
+        color: #356e52;
+      }
+
+      .play-full-btn.vocals:hover,
+      .play-full-btn.vocals.playing {
+        background: #3f7f5f;
+        color: #fff;
+      }
+
+      /* Keep all three pills on a single line on a phone. */
+      @media (max-width: 560px) {
+        .song-actions {
+          gap: 0.4rem;
+          margin-top: 0.7rem;
+        }
+        .play-full-btn {
+          font-size: 0.78rem;
+          padding: 0.4rem 0.72rem;
+          gap: 0.32rem;
+        }
+        .play-full-btn .pf-icon {
+          font-size: 0.85rem;
+        }
+      }
+
+      /* ---- floating player bar: only while a track is active ---- */
+      .player-bar {
+        position: fixed;
+        left: 50%;
+        bottom: calc(0.9rem + env(safe-area-inset-bottom, 0px));
+        transform: translateX(-50%) translateY(130%);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        max-width: calc(100% - 1.4rem);
+        padding: 0.45rem 0.5rem 0.45rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--block-border);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          transform 0.22s ease,
+          opacity 0.22s ease;
+      }
+
+      .player-bar.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .player-bar .pb-dot {
+        flex: 0 0 auto;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .player-bar .pb-label {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--text-main);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .player-bar button {
+        flex: 0 0 auto;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 50%;
+        background: transparent;
+        color: var(--accent);
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+
+      .player-bar button:hover {
+        background: rgba(224, 96, 60, 0.12);
+      }
+
+      .player-bar .pb-stop {
+        color: #8a7e6e;
+        font-size: 1rem;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .player-bar {
+          transition: none;
+        }
+      }
+
+      @media print {
+        .player-bar {
+          display: none !important;
+        }
+      }
+
+      /* The song title, docked in the sticky header once the real one scrolls away. */
+      .brand .mini-title {
+        display: none;
+        font-weight: 700;
+        font-size: 0.92rem;
+        letter-spacing: 0.02em;
+        max-width: 46vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      body.title-docked .brand .name {
+        display: none;
+      }
+      body.title-docked .brand .mini-title {
+        display: inline-block;
+      }
+
+      @media (max-width: 560px) {
+        .brand .mini-title {
+          max-width: 54vw;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* ---- keep the header to a single line at every width ---- */
+      @media (max-width: 1000px) {
+        .toggle .tl {
+          display: none;
+        }
+        .toggle {
+          padding: 0.52rem 0.6rem;
+        }
+      }
+
+      @media (max-width: 700px) {
+        .speed-wrap label,
+        .speed-wrap .val {
+          display: none;
+        }
+        .speed-wrap {
+          padding: 0.2rem 0.45rem;
+        }
+        .speed-wrap input[type="range"] {
+          width: 78px;
+        }
+        .toggle {
+          padding: 0.5rem 0.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header-inner {
+          padding: 0.5rem 0.5rem;
+          gap: 0.35rem 0.35rem;
+        }
+        .toggles {
+          gap: 0.3rem;
+        }
+        .toggle {
+          font-size: 0.88rem;
+          padding: 0.42rem 0.38rem;
+        }
+        .speed-wrap {
+          padding: 0.16rem 0.35rem;
+          gap: 0.22rem;
+        }
+        .speed-wrap input[type="range"] {
+          width: 54px;
+        }
+        .brand {
+          font-size: 0.85rem;
+          gap: 0.3rem;
+        }
+        .antonio-signature {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      /* Vocals-only button: a touch smaller so the pair reads as main + alternative. */
+      .play-btn.vocals-btn {
+        width: 2.1rem;
+        height: 2.1rem;
+        border-color: #3f7f5f;
+        color: #356e52;
+        font-size: 0.9rem;
+      }
+
+      .play-btn.vocals-btn:hover {
+        background: rgba(63, 127, 95, 0.12);
+      }
+
+      /* ---- Video pill + side panel ---- */
+      .play-full-btn.video {
+        border-color: #7d5ba6;
+        color: #6a4a91;
+      }
+
+      .play-full-btn.video:hover,
+      .play-full-btn.video[aria-pressed="true"] {
+        background: #7d5ba6;
+        color: #fff;
+      }
+
+      /* The panel sits beside the lyrics: right half on a wide screen, bottom on a phone. */
+      .video-panel {
+        position: fixed;
+        right: 0;
+        top: var(--header-h, 54px);
+        bottom: 0;
+        width: var(--video-w, 46vw);
+        z-index: 45;
+        display: none;
+        flex-direction: column;
+        background: #000;
+        box-shadow: -6px 0 24px rgba(0, 0, 0, 0.18);
+      }
+
+      body.video-open .video-panel {
+        display: flex;
+      }
+
+      .video-head {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.4rem 0.5rem 0.4rem 0.8rem;
+        background: #141414;
+        color: #f4f1ec;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .video-close {
+        flex: 0 0 auto;
+        width: 1.9rem;
+        height: 1.9rem;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        font-size: 0.95rem;
+        cursor: pointer;
+      }
+
+      .video-close:hover {
+        background: rgba(255, 255, 255, 0.24);
+      }
+
+      .video-panel video {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 0;
+        object-fit: contain;
+        background: #000;
+      }
+
+      /* Wide screens: give the lyrics the left column instead of hiding them behind the video. */
+      @media (min-width: 900px) {
+        body.video-open main {
+          width: calc(100% - var(--video-w, 46vw));
+          max-width: none;
+          margin: 0;
+          padding-left: 2rem;
+          padding-right: 1.2rem;
+        }
+        body.video-open .line .en {
+          display: none;
+        }
+        body.video-open .line .jp {
+          flex: 1 1 100%;
+        }
+      }
+
+      /* Phones: the video docks at the bottom, lyrics scroll above it. */
+      @media (max-width: 899px) {
+        .video-panel {
+          top: auto;
+          left: 0;
+          width: auto;
+          height: 42vh;
+        }
+        body.video-open main {
+          padding-bottom: 46vh;
+        }
+      }
+
+      /* One docked player is enough; the MP3 bar steps aside for the video. */
+      body.video-open .player-bar {
+        display: none;
+      }
+
+      @media print {
+        .video-panel {
+          display: none !important;
+        }
+      }
+    
+  /* Voice switch: colour by source so the current mode is obvious at a glance. */
+  .voice-btn[data-mode="rec"]{ border-color:#3f7f5f; color:#356e52; }
+  .voice-btn[data-mode="tts"]{ border-color:#4a7ba6; color:#3a6a94; }
+
+  /* The voice switch keeps its own colours: green for your recordings, blue for TTS,
+     plain for off - so the current source is readable at a glance, even icon-only. */
+  .toggle.voice-btn[aria-pressed="true"]{ background:#3f7f5f; border-color:#3f7f5f; color:#fff; }
+  .toggle.voice-btn[data-mode="tts"][aria-pressed="true"]{ background:#4a7ba6; border-color:#4a7ba6; color:#fff; }
+  .toggle.voice-btn{ border-color:#3f7f5f; }
+  .toggle.voice-btn[data-mode="tts"]{ border-color:#4a7ba6; }
+  .toggle.voice-btn[data-mode="off"]{ border-color: var(--btn-border); }
+</style>
+  </head>
+  <body class="show-furi show-en">
+    <!-- ================= STICKY HEADER ================= -->
+    <header>
+      <div class="header-inner">
+        <div class="brand">
+          <span class="leaf">🍁</span>
+          <span class="name">Uru</span>
+          <span class="mini-title" id="miniTitle">愛と呼ぶなら</span>
+        </div>
+
+        <div class="toggles">
+          <button
+            class="toggle"
+            id="themeBtn"
+            aria-pressed="false"
+            aria-label="Light / Dark mode"
+            title="Toggle Light / Dark mode"
+          >
+            🌓 <span class="tl">Light / Dark</span>
+          </button>
+          <button
+            class="toggle voice-btn"
+            id="voiceBtn"
+            aria-pressed="true"
+            data-mode="rec"
+            aria-label="Voice: Recorded"
+            title="Voice for lines — tap to switch between off, your recordings and TTS"
+          >
+            <span id="voiceIcon">🎙</span> <span class="tl" id="voiceLabel">Recorded</span>
+          </button>
+          <div class="speed-wrap" title="Playback speed for all audio blocks">
+            <label for="speedRange">Speed</label>
+            <input
+              type="range"
+              id="speedRange"
+              min="0.5"
+              max="1.5"
+              step="0.05"
+              value="1"
+            />
+            <span class="val" id="speedVal">1.00×</span>
+          </div>
+          <button
+            class="toggle"
+            id="enBtn"
+            aria-pressed="true"
+            aria-label="English translation"
+            title="Show / hide English translation"
+          >
+            🌐 <span class="tl">English</span>
+          </button>
+          <button
+            class="toggle"
+            id="furiBtn"
+            aria-pressed="true"
+            aria-label="Furigana"
+            title="Show / hide furigana above kanji"
+          >
+            あ <span class="tl">Furigana</span>
+          </button>
+          <button
+            class="toggle"
+            id="sizeBtn"
+            aria-pressed="false"
+            aria-label="Text size and weight"
+            title="Increase font size &amp; weight"
+          >
+            A⁺ <span class="tl">Size / Weight</span>
+          </button>
+        </div>
+
+        <img
+          class="antonio-signature"
+          src="Antonio.png"
+          alt="ACG Applications"
+          width="34"
+          height="34"
+        />
+      </div>
+    </header>
+
+    <main>
+      <!-- ================= TITLE ================= -->
+      <div class="song-head">
+        <h1 class="song-title">
+          <ruby>愛<rt>あい</rt></ruby
+          >と<ruby>呼<rt>よ</rt></ruby
+          >ぶなら
+        </h1>
+        <div class="meta">
+          Uru<span class="dot">•</span>それを愛と呼ぶなら<span class="dot"
+            >•</span
+          >ドラマ「マイファミリー」主題歌
+        </div>
+        <div class="song-actions">
+          <button
+            class="play-full-btn"
+            id="playFullBtn"
+            data-name="Full song"
+            data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3"
+            data-label-play="Play full song"
+            data-label-pause="Pause full song"
+            title="Play the complete song"
+          >
+            <span class="pf-icon">▶</span>
+            <span class="pf-text">Play full song</span>
+          </button>
+          <button
+            class="play-full-btn karaoke"
+            id="playKaraokeBtn"
+            data-name="Karaoke"
+            data-audio="Uru-Karaoke.mp3"
+            title="Play the karaoke version"
+          >
+            <span class="pf-icon">🎤</span>
+            <span class="pf-text">Karaoke</span>
+          </button>
+          <button
+            class="play-full-btn vocals"
+            id="playVocalsBtn"
+            data-name="Vocals"
+            data-audio="Uru-Vocals.mp3"
+            title="Play the vocal track"
+          >
+            <span class="pf-icon">🎙</span>
+            <span class="pf-text">Vocals</span>
+          </button>
+          <button
+            class="play-full-btn video"
+            id="videoBtn"
+            data-video="URU-Karaoke-Vid.mp4"
+            aria-pressed="false"
+            title="Watch the karaoke video beside the lyrics"
+          >
+            <span class="pf-icon">🎬</span>
+            <span class="pf-text">Video</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= INTRO (instrumental) ================= -->
+      <div class="audio-block instrumental" data-audio="00.intro.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause the intro">
+            ▶
+          </button>
+          <span class="audio-label"><strong>Intro</strong> · instrumental</span>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 01 ================= -->
+      <div class="audio-block" data-audio="01.一つずつ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 01">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="01.一つずつ_vocals.mp3"
+            aria-label="Play vocals only for block 01"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 01"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>01.</strong> 一つずつ</span>
+        </div>
+        <div class="line" data-jp="掛け違えていたボタン">
+          <div class="jp">
+            <ruby>掛<rt>か</rt></ruby
+            >け<ruby>違<rt>ちが</rt></ruby
+            >えていたボタン
+          </div>
+          <div class="en">The buttons I'd fastened all wrong</div>
+        </div>
+        <div class="line" data-jp="一つずつ">
+          <div class="jp">
+            <ruby>一<rt>ひと</rt></ruby
+            >つずつ
+          </div>
+          <div class="en">One by one</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 02 ================= -->
+      <div class="audio-block" data-audio="02.この胸が教えている.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 02">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="02.この胸が教えている_vocals.mp3"
+            aria-label="Play vocals only for block 02"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 02"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"
+            ><strong>02.</strong> この胸が教えている</span
+          >
+        </div>
+        <div class="line" data-jp="下から順に外して">
+          <div class="jp">
+            <ruby>下<rt>した</rt></ruby
+            >から<ruby>順<rt>じゅん</rt></ruby
+            >に<ruby>外<rt>はず</rt></ruby
+            >して
+          </div>
+          <div class="en">Undoing them from the bottom</div>
+        </div>
+        <div class="line" data-jp="もう一度重ねていく">
+          <div class="jp">
+            もう<ruby>一<rt>いち</rt></ruby
+            ><ruby>度<rt>ど</rt></ruby
+            ><ruby>重<rt>かさ</rt></ruby
+            >ねていく
+          </div>
+          <div class="en">And fastening them once more</div>
+        </div>
+        <div class="line" data-jp="君がくれた時間と">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >がくれた<ruby>時<rt>じ</rt></ruby
+            ><ruby>間<rt>かん</rt></ruby
+            >と
+          </div>
+          <div class="en">The time you gave me</div>
+        </div>
+        <div class="line" data-jp="温かさを">
+          <div class="jp">
+            <ruby>温<rt>あたた</rt></ruby
+            >かさを
+          </div>
+          <div class="en">And the warmth</div>
+        </div>
+        <div class="line" data-jp="この胸が教えている">
+          <div class="jp">
+            この<ruby>胸<rt>むね</rt></ruby
+            >が<ruby>教<rt>おし</rt></ruby
+            >えている
+          </div>
+          <div class="en">This heart is teaching me</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 03 ================= -->
+      <div class="audio-block" data-audio="03.感じてるよ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 03">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="03.感じてるよ_vocals.mp3"
+            aria-label="Play vocals only for block 03"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 03"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>03.</strong> 感じてるよ</span>
+        </div>
+        <div class="line" data-jp="空が青いとか">
+          <div class="jp">
+            <ruby>空<rt>そら</rt></ruby
+            >が<ruby>青<rt>あお</rt></ruby
+            >いとか
+          </div>
+          <div class="en">That the sky is blue</div>
+        </div>
+        <div class="line" data-jp="花が咲くとか">
+          <div class="jp">
+            <ruby>花<rt>はな</rt></ruby
+            >が<ruby>咲<rt>さ</rt></ruby
+            >くとか
+          </div>
+          <div class="en">That flowers bloom</div>
+        </div>
+        <div class="line" data-jp="君が笑うとか">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >が<ruby>笑<rt>わら</rt></ruby
+            >うとか
+          </div>
+          <div class="en">That you smile</div>
+        </div>
+        <div class="line" data-jp="抱きしめるとか">
+          <div class="jp">
+            <ruby>抱<rt>だ</rt></ruby
+            >きしめるとか
+          </div>
+          <div class="en">That we hold each other</div>
+        </div>
+        <div class="line" data-jp="すぐそばに">
+          <div class="jp">すぐそばに</div>
+          <div class="en">Right there beside me</div>
+        </div>
+        <div class="line" data-jp="あったこの幸せを">
+          <div class="jp">
+            あったこの<ruby>幸<rt>しあわ</rt></ruby
+            >せを
+          </div>
+          <div class="en">This happiness that was always there</div>
+        </div>
+        <div class="line" data-jp="今痛いくらい">
+          <div class="jp">
+            <ruby>今<rt>いま</rt></ruby
+            ><ruby>痛<rt>いた</rt></ruby
+            >いくらい
+          </div>
+          <div class="en">Now, so much it aches</div>
+        </div>
+        <div class="line" data-jp="感じてるよ">
+          <div class="jp">
+            <ruby>感<rt>かん</rt></ruby
+            >じてるよ
+          </div>
+          <div class="en">I can feel it</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 04 ================= -->
+      <div class="audio-block" data-audio="04.迎えにいくから.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 04">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="04.迎えにいくから_vocals.mp3"
+            aria-label="Play vocals only for block 04"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 04"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>04.</strong> 迎えにいくから</span>
+        </div>
+        <div class="line" data-jp="守りたいものがあると、">
+          <div class="jp">
+            <ruby>守<rt>まも</rt></ruby
+            >りたいものがあると、
+          </div>
+          <div class="en">That there is something I want to protect,</div>
+        </div>
+        <div class="line" data-jp="そこに未来があるんだと">
+          <div class="jp">
+            そこに<ruby>未<rt>み</rt></ruby
+            ><ruby>来<rt>らい</rt></ruby
+            >があるんだと
+          </div>
+          <div class="en">That the future is right there</div>
+        </div>
+        <div class="line" data-jp="君のいる場所まで">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >のいる<ruby>場<rt>ば</rt></ruby
+            ><ruby>所<rt>しょ</rt></ruby
+            >まで
+          </div>
+          <div class="en">To the place where you are</div>
+        </div>
+        <div class="line" data-jp="迎えにいくから">
+          <div class="jp">
+            <ruby>迎<rt>むか</rt></ruby
+            >えにいくから
+          </div>
+          <div class="en">I'll come to meet you</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 05 ================= -->
+      <div class="audio-block" data-audio="05.笑わらってくれ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 05">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="05.笑わらってくれ_vocals.mp3"
+            aria-label="Play vocals only for block 05"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 05"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>05.</strong> 笑わらってくれ</span>
+        </div>
+        <div class="line" data-jp="雨風に打たれて">
+          <div class="jp">
+            <ruby>雨<rt>あめ</rt></ruby
+            ><ruby>風<rt>かぜ</rt></ruby
+            >に<ruby>打<rt>う</rt></ruby
+            >たれて
+          </div>
+          <div class="en">Beaten by the wind and rain</div>
+        </div>
+        <div class="line" data-jp="ボロボロになったら">
+          <div class="jp">ボロボロになったら</div>
+          <div class="en">If I end up battered and worn</div>
+        </div>
+        <div class="line" data-jp="不格好な姿を">
+          <div class="jp">
+            <ruby>不<rt>ふ</rt></ruby
+            ><ruby>格<rt>かっ</rt></ruby
+            ><ruby>好<rt>こう</rt></ruby
+            >な<ruby>姿<rt>すがた</rt></ruby
+            >を
+          </div>
+          <div class="en">My clumsy, ungraceful figure</div>
+        </div>
+        <div class="line" data-jp="笑ってくれ">
+          <div class="jp">
+            <ruby>笑<rt>わら</rt></ruby
+            >ってくれ
+          </div>
+          <div class="en">Laugh at it for me</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 06 ================= -->
+      <div class="audio-block" data-audio="06.離さないように.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 06">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="06.離さないように_vocals.mp3"
+            aria-label="Play vocals only for block 06"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 06"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>06.</strong> 離さないように</span>
+        </div>
+        <div class="line" data-jp="一度転んだからこそ">
+          <div class="jp">
+            <ruby>一<rt>いち</rt></ruby
+            ><ruby>度<rt>ど</rt></ruby
+            ><ruby>転<rt>ころ</rt></ruby
+            >んだからこそ
+          </div>
+          <div class="en">It's precisely because I fell once</div>
+        </div>
+        <div class="line" data-jp="見える世界があるなら">
+          <div class="jp">
+            <ruby>見<rt>み</rt></ruby
+            >える<ruby>世<rt>せ</rt></ruby
+            ><ruby>界<rt>かい</rt></ruby
+            >があるなら
+          </div>
+          <div class="en">That there's a world I can see now</div>
+        </div>
+        <div class="line" data-jp="もう二度とその手を">
+          <div class="jp">
+            もう<ruby>二<rt>に</rt></ruby
+            ><ruby>度<rt>ど</rt></ruby
+            >とその<ruby>手<rt>て</rt></ruby
+            >を
+          </div>
+          <div class="en">So that those hands, never again</div>
+        </div>
+        <div class="line" data-jp="離さないように">
+          <div class="jp">
+            <ruby>離<rt>はな</rt></ruby
+            >さないように
+          </div>
+          <div class="en">I'll never let go</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 07 ================= -->
+      <div class="audio-block" data-audio="07.そこにあるんだよ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 07">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="07.そこにあるんだよ_vocals.mp3"
+            aria-label="Play vocals only for block 07"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 07"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>07.</strong> そこにあるんだよ</span>
+        </div>
+        <div class="line" data-jp="やっと気づいたんだ">
+          <div class="jp">
+            やっと<ruby>気<rt>き</rt></ruby
+            >づいたんだ
+          </div>
+          <div class="en">I've finally realized</div>
+        </div>
+        <div class="line" data-jp="君と過ごす日々">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >と<ruby>過<rt>す</rt></ruby
+            >ごす<ruby>日<rt>ひ</rt></ruby
+            ><ruby>々<rt>び</rt></ruby>
+          </div>
+          <div class="en">The days I spend with you</div>
+        </div>
+        <div class="line" data-jp="本当に欲しかったものが">
+          <div class="jp">
+            <ruby>本<rt>ほん</rt></ruby
+            ><ruby>当<rt>とう</rt></ruby
+            >に<ruby>欲<rt>ほ</rt></ruby
+            >しかったものが
+          </div>
+          <div class="en">What I truly wanted all along</div>
+        </div>
+        <div class="line" data-jp="そこにあるんだよ">
+          <div class="jp">そこにあるんだよ</div>
+          <div class="en">Is right there, you know</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 08 ================= -->
+      <div class="audio-block" data-audio="08.大馬鹿者だ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 08">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="08.大馬鹿者だ_vocals.mp3"
+            aria-label="Play vocals only for block 08"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 08"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>08.</strong> 大馬鹿者だ</span>
+        </div>
+        <div class="line" data-jp="一人で歩いて来た">
+          <div class="jp">
+            <ruby>一<rt>ひと</rt></ruby
+            ><ruby>人<rt>り</rt></ruby
+            >で<ruby>歩<rt>ある</rt></ruby
+            >いて<ruby>来<rt>き</rt></ruby
+            >た
+          </div>
+          <div class="en">I walked all this way alone</div>
+        </div>
+        <div class="line" data-jp="顔をして">
+          <div class="jp">
+            <ruby>顔<rt>かお</rt></ruby
+            >をして
+          </div>
+          <div class="en">Wearing that kind of face</div>
+        </div>
+        <div class="line" data-jp="失いかけてから">
+          <div class="jp">
+            <ruby>失<rt>うしな</rt></ruby
+            >いかけてから
+          </div>
+          <div class="en">Only after nearly losing it all</div>
+        </div>
+        <div class="line" data-jp="ようやく目を覚ました">
+          <div class="jp">
+            ようやく<ruby>目<rt>め</rt></ruby
+            >を<ruby>覚<rt>さ</rt></ruby
+            >ました
+          </div>
+          <div class="en">Did I finally wake up</div>
+        </div>
+        <div class="line" data-jp="そばにあった存在の">
+          <div class="jp">
+            そばにあった<ruby>存<rt>そん</rt></ruby
+            ><ruby>在<rt>ざい</rt></ruby
+            >の
+          </div>
+          <div class="en">The presence that was beside me</div>
+        </div>
+        <div class="line" data-jp="その温もり">
+          <div class="jp">
+            その<ruby>温<rt>ぬく</rt></ruby
+            >もり
+          </div>
+          <div class="en">That warmth</div>
+        </div>
+        <div class="line" data-jp="僕はそう">
+          <div class="jp">
+            <ruby>僕<rt>ぼく</rt></ruby
+            >はそう
+          </div>
+          <div class="en">I was, yes —</div>
+        </div>
+        <div class="line" data-jp="大馬鹿者だ">
+          <div class="jp">
+            <ruby>大<rt>おお</rt></ruby
+            ><ruby>馬<rt>ば</rt></ruby
+            ><ruby>鹿<rt>か</rt></ruby
+            ><ruby>者<rt>もの</rt></ruby
+            >だ
+          </div>
+          <div class="en">A complete fool</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 09 ================= -->
+      <div class="audio-block" data-audio="09.この幼さも.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 09">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="09.この幼さも_vocals.mp3"
+            aria-label="Play vocals only for block 09"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 09"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>09.</strong> この幼さも</span>
+        </div>
+        <div class="line" data-jp="初めて知る自分の">
+          <div class="jp">
+            <ruby>初<rt>はじ</rt></ruby
+            >めて<ruby>知<rt>し</rt></ruby
+            >る<ruby>自<rt>じ</rt></ruby
+            ><ruby>分<rt>ぶん</rt></ruby
+            >の
+          </div>
+          <div class="en">
+            The weakness of mine I'm learning for the first time
+          </div>
+        </div>
+        <div class="line" data-jp="弱さとか">
+          <div class="jp">
+            <ruby>弱<rt>よわ</rt></ruby
+            >さとか
+          </div>
+          <div class="en">My weakness, and</div>
+        </div>
+        <div class="line" data-jp="隠し切れなかった">
+          <div class="jp">
+            <ruby>隠<rt>かく</rt></ruby
+            >し<ruby>切<rt>き</rt></ruby
+            >れなかった
+          </div>
+          <div class="en">This childishness I couldn't fully hide</div>
+        </div>
+        <div class="line" data-jp="この幼さも">
+          <div class="jp">
+            この<ruby>幼<rt>おさな</rt></ruby
+            >さも
+          </div>
+          <div class="en">All of it</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 10 ================= -->
+      <div class="audio-block" data-audio="10.くれたこと.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 10">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="10.くれたこと_vocals.mp3"
+            aria-label="Play vocals only for block 10"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 10"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>10.</strong> くれたこと</span>
+        </div>
+        <div class="line" data-jp="きっと君は">
+          <div class="jp">
+            きっと<ruby>君<rt>きみ</rt></ruby
+            >は
+          </div>
+          <div class="en">Surely you</div>
+        </div>
+        <div class="line" data-jp="知っていたんだろう">
+          <div class="jp">
+            <ruby>知<rt>し</rt></ruby
+            >っていたんだろう
+          </div>
+          <div class="en">Knew it all along</div>
+        </div>
+        <div class="line" data-jp="それでも信じて">
+          <div class="jp">
+            それでも<ruby>信<rt>しん</rt></ruby
+            >じて
+          </div>
+          <div class="en">And even so, you kept believing</div>
+        </div>
+        <div class="line" data-jp="くれたこと">
+          <div class="jp">くれたこと</div>
+          <div class="en">In me</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 11 ================= -->
+      <div class="audio-block" data-audio="11.迎えにいくから.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 11">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="11.迎えにいくから_vocals.mp3"
+            aria-label="Play vocals only for block 11"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 11"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>11.</strong> 迎えにいくから</span>
+        </div>
+        <div class="line" data-jp="返したいものがあると">
+          <div class="jp">
+            <ruby>返<rt>かえ</rt></ruby
+            >したいものがあると
+          </div>
+          <div class="en">That there's something I want to give back</div>
+        </div>
+        <div class="line" data-jp="見つけたいものがあると">
+          <div class="jp">
+            <ruby>見<rt>み</rt></ruby
+            >つけたいものがあると
+          </div>
+          <div class="en">That there's something I want to find</div>
+        </div>
+        <div class="line" data-jp="君のいる場所まで">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >のいる<ruby>場<rt>ば</rt></ruby
+            ><ruby>所<rt>しょ</rt></ruby
+            >まで
+          </div>
+          <div class="en">To the place where you are</div>
+        </div>
+        <div class="line" data-jp="迎えにいくから">
+          <div class="jp">
+            <ruby>迎<rt>むか</rt></ruby
+            >えにいくから
+          </div>
+          <div class="en">I'll come to meet you</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 12 ================= -->
+      <div class="audio-block" data-audio="12.伝えにいくよ.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 12">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="12.伝えにいくよ_vocals.mp3"
+            aria-label="Play vocals only for block 12"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 12"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>12.</strong> 伝えにいくよ</span>
+        </div>
+        <div class="line" data-jp="雨風に打たれて">
+          <div class="jp">
+            <ruby>雨<rt>あめ</rt></ruby
+            ><ruby>風<rt>かぜ</rt></ruby
+            >に<ruby>打<rt>う</rt></ruby
+            >たれて
+          </div>
+          <div class="en">Beaten by the wind and rain</div>
+        </div>
+        <div class="line" data-jp="ボロボロになっても">
+          <div class="jp">ボロボロになっても</div>
+          <div class="en">Even if I'm battered and worn</div>
+        </div>
+        <div class="line" data-jp="変わらないこの想いを">
+          <div class="jp">
+            <ruby>変<rt>か</rt></ruby
+            >わらないこの<ruby>想<rt>おも</rt></ruby
+            >いを
+          </div>
+          <div class="en">This feeling that will never change</div>
+        </div>
+        <div class="line" data-jp="伝えにいくよ">
+          <div class="jp">
+            <ruby>伝<rt>つた</rt></ruby
+            >えにいくよ
+          </div>
+          <div class="en">I'll come to tell you</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 13 ================= -->
+      <div class="audio-block" data-audio="13.たった一つの輝き.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 13">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="13.たった一つの輝き_vocals.mp3"
+            aria-label="Play vocals only for block 13"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 13"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>13.</strong> たった一つの輝き</span>
+        </div>
+        <div class="line" data-jp="見落としてきた涙も">
+          <div class="jp">
+            <ruby>見<rt>み</rt></ruby
+            ><ruby>落<rt>お</rt></ruby
+            >としてきた<ruby>涙<rt>なみだ</rt></ruby
+            >も
+          </div>
+          <div class="en">The tears I overlooked</div>
+        </div>
+        <div class="line" data-jp="すり替えてきた感情も">
+          <div class="jp">
+            すり<ruby>替<rt>か</rt></ruby
+            >えてきた<ruby>感<rt>かん</rt></ruby
+            ><ruby>情<rt>じょう</rt></ruby
+            >も
+          </div>
+          <div class="en">The feelings I swapped out</div>
+        </div>
+        <div class="line" data-jp="取り戻すように走れ">
+          <div class="jp">
+            <ruby>取<rt>と</rt></ruby
+            >り<ruby>戻<rt>もど</rt></ruby
+            >すように<ruby>走<rt>はし</rt></ruby
+            >れ
+          </div>
+          <div class="en">Run — as if to reclaim them all</div>
+        </div>
+        <div class="line" data-jp="走れ">
+          <div class="jp">
+            <ruby>走<rt>はし</rt></ruby
+            >れ
+          </div>
+          <div class="en">Run</div>
+        </div>
+        <div class="line" data-jp="同じものはない">
+          <div class="jp">
+            <ruby>同<rt>おな</rt></ruby
+            >じものはない
+          </div>
+          <div class="en">There is nothing else like it</div>
+        </div>
+        <div class="line" data-jp="たった一つの輝き">
+          <div class="jp">
+            たった<ruby>一<rt>ひと</rt></ruby
+            >つの<ruby>輝<rt>かがや</rt></ruby
+            >き
+          </div>
+          <div class="en">That one single radiance</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 14 ================= -->
+      <div class="audio-block" data-audio="14.揺るがない形になって.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 14">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="14.揺るがない形になって_vocals.mp3"
+            aria-label="Play vocals only for block 14"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 14"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"
+            ><strong>14.</strong> 揺るがない形になって</span
+          >
+        </div>
+        <div class="line" data-jp="支え合える喜びも">
+          <div class="jp">
+            <ruby>支<rt>ささ</rt></ruby
+            >え<ruby>合<rt>あ</rt></ruby
+            >える<ruby>喜<rt>よろこ</rt></ruby
+            >びも
+          </div>
+          <div class="en">The joy of holding each other up</div>
+        </div>
+        <div class="line" data-jp="分かち合える悲しみも">
+          <div class="jp">
+            <ruby>分<rt>わ</rt></ruby
+            >かち<ruby>合<rt>あ</rt></ruby
+            >える<ruby>悲<rt>かな</rt></ruby
+            >しみも
+          </div>
+          <div class="en">The sorrow we can share</div>
+        </div>
+        <div class="line" data-jp="いつの日か">
+          <div class="jp">
+            いつの<ruby>日<rt>ひ</rt></ruby
+            >か
+          </div>
+          <div class="en">Someday</div>
+        </div>
+        <div class="line" data-jp="揺るがない形になって">
+          <div class="jp">
+            <ruby>揺<rt>ゆ</rt></ruby
+            >るがない<ruby>形<rt>かたち</rt></ruby
+            >になって
+          </div>
+          <div class="en">Will take an unshakable shape</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 15 ================= -->
+      <div class="audio-block" data-audio="15.それを愛と呼ぶなら.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 15">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="15.それを愛と呼ぶなら_vocals.mp3"
+            aria-label="Play vocals only for block 15"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 15"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"
+            ><strong>15.</strong> それを愛と呼ぶなら</span
+          >
+        </div>
+        <div class="line" data-jp="世界中を探しても">
+          <div class="jp">
+            <ruby>世<rt>せ</rt></ruby
+            ><ruby>界<rt>かい</rt></ruby
+            ><ruby>中<rt>じゅう</rt></ruby
+            >を<ruby>探<rt>さが</rt></ruby
+            >しても
+          </div>
+          <div class="en">Even if you search the whole world</div>
+        </div>
+        <div class="line" data-jp="ここにしかないもの">
+          <div class="jp">ここにしかないもの</div>
+          <div class="en">Something that exists only here</div>
+        </div>
+        <div class="line" data-jp="それを愛と呼ぶなら">
+          <div class="jp">
+            それを<ruby>愛<rt>あい</rt></ruby
+            >と<ruby>呼<rt>よ</rt></ruby
+            >ぶなら
+          </div>
+          <div class="en">If we call that love</div>
+        </div>
+      </div>
+
+      <!-- ================= BLOCK 16 ================= -->
+      <div class="audio-block" data-audio="16.君がいて欲しい.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause block 16">
+            ▶
+          </button>
+          <button
+            class="play-btn vocals-btn"
+            data-audio="16.君がいて欲しい_vocals.mp3"
+            aria-label="Play vocals only for block 16"
+            title="Vocals only — sing along"
+          >
+            🎤
+          </button>
+          <button
+            class="loop-btn"
+            aria-label="Toggle loop for block 16"
+            aria-pressed="false"
+            title="Loop this block"
+          >
+            🔁
+          </button>
+          <span class="audio-label"><strong>16.</strong> 君がいて欲しい</span>
+        </div>
+        <div class="line" data-jp="守りたいものがあると">
+          <div class="jp">
+            <ruby>守<rt>まも</rt></ruby
+            >りたいものがあると
+          </div>
+          <div class="en">That there is something I want to protect</div>
+        </div>
+        <div class="line" data-jp="そこに未来があるんだと">
+          <div class="jp">
+            そこに<ruby>未<rt>み</rt></ruby
+            ><ruby>来<rt>らい</rt></ruby
+            >があるんだと
+          </div>
+          <div class="en">That the future is right there</div>
+        </div>
+        <div class="line" data-jp="君のいる場所まで">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >のいる<ruby>場<rt>ば</rt></ruby
+            ><ruby>所<rt>しょ</rt></ruby
+            >まで
+          </div>
+          <div class="en">To the place where you are</div>
+        </div>
+        <div class="line" data-jp="迎えにいくから">
+          <div class="jp">
+            <ruby>迎<rt>むか</rt></ruby
+            >えにいくから
+          </div>
+          <div class="en">I'll come to meet you</div>
+        </div>
+        <div class="line" data-jp="今はっきりと言えるよ">
+          <div class="jp">
+            <ruby>今<rt>いま</rt></ruby
+            >はっきりと<ruby>言<rt>い</rt></ruby
+            >えるよ
+          </div>
+          <div class="en">Now I can say it clearly</div>
+        </div>
+        <div class="line" data-jp="大切な人よ">
+          <div class="jp">
+            <ruby>大<rt>たい</rt></ruby
+            ><ruby>切<rt>せつ</rt></ruby
+            >な<ruby>人<rt>ひと</rt></ruby
+            >よ
+          </div>
+          <div class="en">My precious one</div>
+        </div>
+        <div class="line" data-jp="いつまでも">
+          <div class="jp">いつまでも</div>
+          <div class="en">Forever</div>
+        </div>
+        <div class="line" data-jp="僕のそばには">
+          <div class="jp">
+            <ruby>僕<rt>ぼく</rt></ruby
+            >のそばには
+          </div>
+          <div class="en">By my side</div>
+        </div>
+        <div class="line" data-jp="君がいて欲しい">
+          <div class="jp">
+            <ruby>君<rt>きみ</rt></ruby
+            >がいて<ruby>欲<rt>ほ</rt></ruby
+            >しい
+          </div>
+          <div class="en">I want you to be there</div>
+        </div>
+      </div>
+
+      <!-- ================= END (instrumental) ================= -->
+      <div class="audio-block instrumental" data-audio="17.end.mp3">
+        <div class="audio-header">
+          <button class="play-btn" aria-label="Play or pause the outro">
+            ▶
+          </button>
+          <span class="audio-label"><strong>End</strong> · instrumental</span>
+        </div>
+      </div>
+
+      <div class="divider">💕💕💕 Uru 💕💕💕</div>
+    </main>
+
+    <script>
+      (function () {
+        "use strict";
+
+        /* ---------- Register Service Worker for PWA ---------- */
+        if ("serviceWorker" in navigator) {
+          window.addEventListener("load", () => {
+            navigator.serviceWorker
+              .register("./sw.js")
+              .then((registration) => {
+                console.log(
+                  "ServiceWorker registration successful with scope: ",
+                  registration.scope,
+                );
+                // Ask for durable storage so the ~74 MB media cache is not evicted when the
+                // device runs low on space - an eviction means downloading it all again.
+                if (navigator.storage && navigator.storage.persist) {
+                  navigator.storage.persist().catch(function () {});
+                }
+              })
+              .catch((err) => {
+                console.log("ServiceWorker registration failed: ", err);
+              });
+          });
+        }
+
+        var body = document.body;
+        var themeBtn = document.getElementById("themeBtn");
+        var voiceBtn = document.getElementById("voiceBtn");
+var voiceIcon = document.getElementById("voiceIcon");
+var voiceLabel = document.getElementById("voiceLabel");
+        var enBtn = document.getElementById("enBtn");
+        var furiBtn = document.getElementById("furiBtn");
+        var sizeBtn = document.getElementById("sizeBtn");
+        var speedRange = document.getElementById("speedRange");
+        var speedVal = document.getElementById("speedVal");
+
+        /* ---------- saved preferences ---------- */
+        var PREFS_KEY = "uru-prefs-v1";
+        function loadPrefs() {
+          try {
+            return JSON.parse(localStorage.getItem(PREFS_KEY) || "{}") || {};
+          } catch (e) {
+            return {};
+          }
+        }
+        function savePref(key, val) {
+          try {
+            var cur = loadPrefs();
+            cur[key] = val;
+            localStorage.setItem(PREFS_KEY, JSON.stringify(cur));
+          } catch (e) {
+            /* private mode: settings just will not persist */
+          }
+        }
+        function pref(key, fallback) {
+          var cur = loadPrefs();
+          return Object.prototype.hasOwnProperty.call(cur, key)
+            ? cur[key]
+            : fallback;
+        }
+
+        /* ---------- generic toggle helper ---------- */
+        function bindToggle(btn, cls, initial) {
+          var on = initial;
+          btn.setAttribute("aria-pressed", String(on));
+          body.classList.toggle(cls, on); // body ships with show-furi/show-en already set
+          btn.addEventListener("click", function () {
+            on = !on;
+            btn.setAttribute("aria-pressed", String(on));
+            body.classList.toggle(cls, on);
+            savePref(cls, on);
+            if (cls === "tts-on" && !on) stopSpeaking();
+          });
+        }
+
+        bindToggle(enBtn, "show-en", pref("show-en", true));
+        bindToggle(furiBtn, "show-furi", pref("show-furi", true));
+        bindToggle(sizeBtn, "big", pref("big", false));
+
+        /* ---------- theme toggle ---------- */
+        var isDark = pref("dark", false);
+        themeBtn.setAttribute("aria-pressed", String(isDark));
+        if (isDark) body.classList.add("dark-mode");
+        themeBtn.addEventListener("click", function () {
+          isDark = !isDark;
+          themeBtn.setAttribute("aria-pressed", String(isDark));
+          body.classList.toggle("dark-mode", isDark);
+          savePref("dark", isDark);
+        });
+
+        /* ---------- TTS ---------- */
+        var synth = window.speechSynthesis;
+        // Line voice: "off", "rec" (the recorded sentences) or "tts" (the computer voice).
+        var VOICE_MODES = ["off", "rec", "tts"];
+        var voiceMode = pref("voiceMode", "rec");
+        if (VOICE_MODES.indexOf(voiceMode) < 0) voiceMode = "rec";
+        var lineAudio = null;   // <audio> for the sentence recordings
+        var lineLabel = "";     // what the player bar shows for a line
+        var currentLine = null;
+        var voiceJa = null;
+
+        function pickVoice() {
+          if (!synth) return;
+          var voices = synth.getVoices() || [];
+          voiceJa =
+            voices.filter(function (v) {
+              return v.lang && v.lang.toLowerCase().indexOf("ja") === 0;
+            })[0] || null;
+        }
+        if (synth) {
+          pickVoice();
+          synth.onvoiceschanged = pickVoice;
+        }
+
+        function clearHighlight() {
+          if (currentLine) currentLine.classList.remove("speaking");
+          currentLine = null;
+        }
+
+        function stopSpeaking() {
+          if (synth) synth.cancel();
+          clearHighlight();
+        }
+
+        function speak(text, el) {
+          if (!synth || !text) return;
+          synth.cancel();
+          clearHighlight();
+          currentLine = el || null;
+          if (currentLine) currentLine.classList.add("speaking");
+
+          var u = new SpeechSynthesisUtterance(text);
+          u.lang = "ja-JP";
+          u.rate = 0.9;
+          u.pitch = 1;
+          if (voiceJa) u.voice = voiceJa;
+          u.onend = function () {
+            if (currentLine === el) clearHighlight();
+          };
+          u.onerror = function () {
+            if (currentLine === el) clearHighlight();
+          };
+          synth.speak(u);
+        }
+
+        /* ---------- voice helpers ---------- */
+function updateVoiceButton() {
+  if (!voiceBtn) return;
+  var icon = voiceMode === "off" ? "🔇" : voiceMode === "rec" ? "🎙" : "🔊";
+  var label = voiceMode === "off" ? "Voice off" : voiceMode === "rec" ? "Recorded" : "TTS";
+  voiceBtn.setAttribute("aria-pressed", String(voiceMode !== "off"));
+  voiceBtn.setAttribute("aria-label", "Voice: " + label);
+  voiceBtn.setAttribute("data-mode", voiceMode);
+  voiceBtn.title = "Voice: " + label + " (tap to switch)";
+  if (voiceIcon) voiceIcon.textContent = icon;
+  if (voiceLabel) voiceLabel.textContent = label;
+  body.classList.toggle("voice-on", voiceMode !== "off");
+  body.classList.toggle("tts-on", voiceMode !== "off");
 }
 
-.toggles{
-    display:flex;
-    gap:.4rem;
-    flex-wrap:nowrap;
-    align-items:center;
-    /* Takes the middle of the row and gives space back first, so the badge on the
-       right is never pushed off screen. */
-    flex:1 1 auto;
-    overflow-x:auto;
-    scrollbar-width:none;
-    -ms-overflow-style:none;
-    min-width:0;
-  }
-
-  .toggles::-webkit-scrollbar{ display:none; }
-
-  .toggle{
-    font:inherit;
-    font-size:.78rem;
-    line-height:1;
-    padding:.52rem .75rem;
-    border-radius:999px;
-    border:1px solid var(--btn-border);
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    cursor:pointer;
-    white-space:nowrap;
-    transition:background .18s, border-color .18s, color .18s, box-shadow .18s, transform .1s;
-    user-select:none;
-  }
-  .toggle:hover{
-    color: var(--text-main);
-    border-color: var(--accent);
-    background: var(--btn-hover-bg);
-  }
-  .toggle:active{transform:translateY(1px);}
-  .toggle:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-
-  .toggle[aria-pressed="true"]{
-    background:linear-gradient(180deg, var(--accent), #b8432a);
-    border-color: var(--accent);
-    color:#fff;
-    box-shadow:0 0 0 3px rgba(224,96,60,.18);
-  }
-
-  /* speed control */
-  .speed-wrap{
-    display:flex;
-    align-items:center;
-    gap:.3rem;
-    font-size:.72rem;
-    color: var(--btn-text);
-    background: var(--btn-bg);
-    border:1px solid var(--btn-border);
-    border-radius:999px;
-    padding:.2rem .55rem;
-    white-space:nowrap;
-    transition: background .3s, border-color .3s;
-  }
-  .speed-wrap label{letter-spacing:.04em;}
-  .speed-wrap input[type="range"]{
-    width:70px;
-    accent-color: var(--accent);
-    cursor:pointer;
-    height:4px;
-  }
-  .speed-wrap .val{
-    min-width:2.1em;
-    text-align:right;
-    font-variant-numeric:tabular-nums;
-    color: var(--accent);
-    font-weight:600;
-  }
-
-  /* ============ CONTENT ============ */
-  main{
-    max-width:900px;
-    margin:0 auto;
-    padding:1.6rem 1rem 7rem;
-  }
-
-  .song-head{
-    text-align:center;
-    padding:.5rem 0 1.6rem;
-    border-bottom:1px solid var(--block-border);
-    margin-bottom:1.6rem;
-  }
-
-  .song-title{
-    font-size:1.7rem;
-    font-weight:700;
-    margin:0 0 .5rem;
-    letter-spacing:.02em;
-    line-height:2.4;
-  }
-
-  .meta{
-    font-size:.78rem;
-    color: var(--meta-text);
-    letter-spacing:.08em;
-    text-transform:uppercase;
-  }
-  .meta .dot{opacity:.4; margin:0 .45rem;}
-
-  .divider{
-    text-align:center;
-    font-size:.85rem;
-    letter-spacing:.3em;
-    color: var(--divider-color);
-    margin:1.6rem 0;
-    user-select:none;
-  }
-
-  /* ---- audio block ---- */
-  .audio-block{
-    margin:2rem 0;
-    border:1px solid var(--block-border);
-    border-radius:14px;
-    background: var(--block-bg);
-    box-shadow: var(--block-shadow);
-    padding:.9rem 1.1rem 1.2rem;
-    transition: border-color .25s, box-shadow .25s, background .3s;
-  }
-  .audio-block.playing{
-    border-color: var(--accent);
-    box-shadow: 0 0 0 4px rgba(224,96,60,.15), var(--block-shadow);
-  }
-
-  .audio-header{
-    display:flex;
-    align-items:center;
-    gap:.7rem;
-    flex-wrap:wrap;
-    margin-bottom:.8rem;
-    padding-bottom:.6rem;
-    border-bottom:1px dashed var(--block-border);
-  }
-
-  .play-btn{
-    flex:0 0 auto;
-    width:2.5rem;
-    height:2.5rem;
-    border-radius:50%;
-    border:1px solid var(--accent);
-    background: transparent;
-    color: var(--accent);
-    font-size:1rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:background .2s, color .2s, transform .12s, box-shadow .2s;
-    line-height:1;
-    padding:0;
-  }
-  .play-btn:hover{
-    background: var(--accent);
-    color:#fff;
-    box-shadow:0 0 0 3px rgba(224,96,60,.2);
-  }
-  .play-btn:active{transform:scale(.94);}
-  .play-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-
-  .audio-block.playing .play-btn{
-    background: var(--accent);
-    color:#fff;
-    border-color: var(--accent);
-  }
-
-  /* loop toggle button */
-  .loop-btn{
-    flex:0 0 auto;
-    width:2.2rem;
-    height:2.2rem;
-    border-radius:8px;
-    border:1px solid var(--btn-border);
-    background: var(--btn-bg);
-    color: var(--btn-text);
-    font-size:.95rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:background .18s, border-color .18s, color .18s, box-shadow .18s, transform .1s;
-    line-height:1;
-    padding:0;
-    user-select:none;
-  }
-  .loop-btn:hover{
-    color: var(--text-main);
-    border-color: var(--accent);
-  }
-  .loop-btn:active{transform:translateY(1px);}
-  .loop-btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
-
-  .loop-btn[aria-pressed="true"]{
-    background: var(--accent);
-    border-color: var(--accent);
-    color:#fff;
-    box-shadow:0 0 0 3px rgba(224,96,60,.18);
-  }
-
-  .audio-label{
-    font-size:.82rem;
-    letter-spacing:.06em;
-    color: var(--audio-label);
-    font-variant-numeric:tabular-nums;
-  }
-  .audio-label strong{
-    color: var(--audio-label-strong);
-    font-weight:600;
-  }
-
-  /* ---- lyric lines (two-column layout) ---- */
-  .line{
-    display:flex;
-    gap:1.5rem;
-    padding:.15rem 0;
-    align-items:flex-start;
-    border-radius:8px;
-    transition:background .15s, padding-left .15s;
-  }
-
-  /* TTS highlight styles */
-  body.tts-on .line {
-    cursor: pointer;
-    padding-left: 1.8rem;
-    position: relative;
-  }
-  body.tts-on .line::before {
-    content: "🔊";
-    position: absolute;
-    left: .15rem;
-    top: .45rem;
-    font-size: .8em;
-    opacity: .4;
-    transition: opacity .15s, transform .15s;
-  }
-  body.tts-on .line:hover {
-    background: var(--line-hover);
-  }
-  body.tts-on .line:hover::before {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  body.tts-on .line.speaking {
-    background: var(--line-speaking);
-    box-shadow: inset 3px 0 0 var(--accent);
-  }
-  body.tts-on .line.speaking::before {
-    opacity: 1;
-  }
-
-  .line .jp{
-    flex: 1 1 50%;
-    min-width:0;
-    font-size:1.22rem;
-    letter-spacing:.012em;
-    line-height:2.1;
-    color: var(--jp-text);
-    font-weight: var(--jp-weight);
-  }
-
-  .line .en{
-    flex: 1 1 50%;
-    min-width:0;
-    display:none;
-    font-size:1.05rem;
-    font-style:italic;
-    color: var(--en-text);
-    line-height:1.8;
-    padding-top:.28rem;
-  }
-  body.show-en .line .en{
-    display:block;
-  }
-
-  /* Small adaptation for narrow screens to avoid squishing */
-  @media (max-width:640px){
-    .line{
-      flex-direction:column;
-      gap:0;
-      padding:.25rem 0;
-    }
-    body.tts-on .line {
-      padding-left: 1.5rem;
-    }
-    .line .jp{ line-height:1.8; }
-    .line .en{ padding-top:0; padding-bottom:.2rem; font-size:.95rem; line-height:1.5; }
-    body:not(.show-en) .line { padding: .15rem 0; }
-  }
-
-  /* ---- furigana ---- */
-  ruby{ruby-position:over;}
-  rt{
-    /* 0.48em at 400 was ~9px on a desktop and read as a faint smudge; 0.62em at
-       600 gives roughly 12px there and still sits clear of the line above. */
-    font-size:.62em;
-    font-weight:600;
-    letter-spacing:0;
-    color: var(--furi-text);
-    line-height:1.1;
-  }
-  body:not(.show-furi) rt{display:none;}
-
-  /* ---- font size / weight toggle ---- */
-  body.big .jp{font-size:1.62rem; font-weight:700; line-height:2.2;}
-  body.big .en{font-size:1.15rem; font-weight:600;}
-  body.big .song-title{font-size:2.05rem;}
-
-  @media (max-width:560px){
-    .header-inner{justify-content:center;}
-    .toggle{font-size:.72rem; padding:.48rem .62rem;}
-    .jp{font-size:1.12rem;}
-    body.big .jp{font-size:1.4rem;}
-    body.big .en{font-size:1.05rem;}
-    .song-title{font-size:1.4rem;}
-    .speed-wrap{padding:.2rem .4rem;}
-    .speed-wrap input[type="range"]{width:56px;}
-    .audio-block{padding:.7rem .8rem 1rem;}
-    .play-btn{width:2.2rem;height:2.2rem;}
-    .loop-btn{width:2rem;height:2rem;font-size:.85rem;}
-  }
-
-  /* Full-song button under the title */
-  .play-full-btn{
-    display:inline-flex;
-    align-items:center;
-    gap:.5rem;
-    padding:.5rem 1.1rem;
-    border-radius:999px;
-    border:1px solid var(--accent);
-    background:transparent;
-    color:var(--accent);
-    font:inherit;
-    font-size:.9rem;
-    font-weight:600;
-    cursor:pointer;
-    transition:background .15s, color .15s;
-  }
-
-  .play-full-btn:hover,
-  .play-full-btn.playing{
-    background:var(--accent);
-    color:#fff;
-  }
-
-  .play-full-btn .pf-icon{ font-size:.95rem; }
-
-  /* Instrumental blocks carry no lyric lines, so their label is set apart */
-  .audio-block.instrumental .audio-label{
-    font-style:italic;
-    color:#8a7e6e;
-  }
-  .audio-block.instrumental .audio-header{
-    margin-bottom:0;
-    padding-bottom:.2rem;
-    border-bottom:none;
-  }
-
-  /* Title actions: full song, then karaoke beneath it */
-  /* The three title pills sit on one line and wrap only if the screen is too narrow. */
-  .song-actions{
-    display:flex;
-    flex-direction:row;
-    flex-wrap:wrap;
-    align-items:center;
-    justify-content:center;
-    gap:.5rem;
-    margin-top:.9rem;
-  }
-
-  .play-full-btn.karaoke{
-    border-color:#4a7ba6;
-    color:#3a6a94;
-  }
-
-  .play-full-btn.karaoke:hover,
-  .play-full-btn.karaoke.playing{
-    background:#4a7ba6;
-    color:#fff;
-  }
-
-  .play-full-btn.vocals{
-    border-color:#3f7f5f;
-    color:#356e52;
-  }
-
-  .play-full-btn.vocals:hover,
-  .play-full-btn.vocals.playing{
-    background:#3f7f5f;
-    color:#fff;
-  }
-
-  /* Keep all three pills on a single line on a phone. */
-  @media (max-width:560px){
-    .song-actions{ gap:.4rem; margin-top:.7rem; }
-    .play-full-btn{ font-size:.78rem; padding:.4rem .72rem; gap:.32rem; }
-    .play-full-btn .pf-icon{ font-size:.85rem; }
-  }
-
-  /* ---- floating player bar: only while a track is active ---- */
-  .player-bar{
-    position:fixed;
-    left:50%;
-    bottom:calc(.9rem + env(safe-area-inset-bottom, 0px));
-    transform:translateX(-50%) translateY(130%);
-    z-index:60;
-    display:flex;
-    align-items:center;
-    gap:.55rem;
-    max-width:calc(100% - 1.4rem);
-    padding:.45rem .5rem .45rem .85rem;
-    border-radius:999px;
-    background:rgba(255,255,255,.96);
-    border:1px solid var(--block-border);
-    box-shadow:0 8px 24px rgba(0,0,0,.14);
-    -webkit-backdrop-filter:blur(8px);
-    backdrop-filter:blur(8px);
-    opacity:0;
-    pointer-events:none;
-    transition:transform .22s ease, opacity .22s ease;
-  }
-
-  .player-bar.show{
-    transform:translateX(-50%) translateY(0);
-    opacity:1;
-    pointer-events:auto;
-  }
-
-  .player-bar .pb-dot{
-    flex:0 0 auto;
-    width:.5rem;
-    height:.5rem;
-    border-radius:50%;
-    background:var(--accent);
-  }
-
-  .player-bar .pb-label{
-    flex:1 1 auto;
-    min-width:0;
-    font-size:.82rem;
-    font-weight:600;
-    color:var(--text-main);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  .player-bar button{
-    flex:0 0 auto;
-    width:2rem;
-    height:2rem;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:none;
-    border-radius:50%;
-    background:transparent;
-    color:var(--accent);
-    font-size:.95rem;
-    cursor:pointer;
-    transition:background .15s;
-  }
-
-  .player-bar button:hover{ background:rgba(224,96,60,.12); }
-
-  .player-bar .pb-stop{
-    color:#8a7e6e;
-    font-size:1rem;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .player-bar{ transition:none; }
-  }
-
-  @media print{
-    .player-bar{ display:none !important; }
-  }
-
-  /* The song title, docked in the sticky header once the real one scrolls away. */
-  .brand .mini-title{
-    display:none;
-    font-weight:700;
-    font-size:.92rem;
-    letter-spacing:.02em;
-    max-width:46vw;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  body.title-docked .brand .name{ display:none; }
-  body.title-docked .brand .mini-title{ display:inline-block; }
-
-  @media (max-width:560px){
-    .brand .mini-title{ max-width:54vw; font-size:.85rem; }
-  }
-
-  /* ---- keep the header to a single line at every width ---- */
-  @media (max-width:1000px){
-    .toggle .tl{ display:none; }
-    .toggle{ padding:.52rem .6rem; }
-  }
-
-  @media (max-width:700px){
-    .speed-wrap label,
-    .speed-wrap .val{ display:none; }
-    .speed-wrap{ padding:.2rem .45rem; }
-    .speed-wrap input[type=range]{ width:78px; }
-    .toggle{ padding:.5rem .5rem; }
-  }
-
-  @media (max-width:480px){
-    .header-inner{ padding:.5rem .5rem; gap:.35rem .35rem; }
-    .toggles{ gap:.3rem; }
-    .toggle{ font-size:.88rem; padding:.42rem .38rem; }
-    .speed-wrap{ padding:.16rem .35rem; gap:.22rem; }
-    .speed-wrap input[type=range]{ width:54px; }
-    .brand{ font-size:.85rem; gap:.3rem; }
-    .antonio-signature{ width:30px; height:30px; }
-  }
-
-  /* Vocals-only button: a touch smaller so the pair reads as main + alternative. */
-  .play-btn.vocals-btn{
-    width:2.1rem;
-    height:2.1rem;
-    border-color:#3f7f5f;
-    color:#356e52;
-    font-size:.9rem;
-  }
-
-  .play-btn.vocals-btn:hover{
-    background:rgba(63,127,95,.12);
-  }
-
-  /* ---- Video pill + side panel ---- */
-  .play-full-btn.video{
-    border-color:#7d5ba6;
-    color:#6a4a91;
-  }
-
-  .play-full-btn.video:hover,
-  .play-full-btn.video[aria-pressed="true"]{
-    background:#7d5ba6;
-    color:#fff;
-  }
-
-  /* The panel sits beside the lyrics: right half on a wide screen, bottom on a phone. */
-  .video-panel{
-    position:fixed;
-    right:0;
-    top:var(--header-h, 54px);
-    bottom:0;
-    width:var(--video-w, 46vw);
-    z-index:45;
-    display:none;
-    flex-direction:column;
-    background:#000;
-    box-shadow:-6px 0 24px rgba(0,0,0,.18);
-  }
-
-  body.video-open .video-panel{ display:flex; }
-
-  .video-head{
-    flex:0 0 auto;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:.5rem;
-    padding:.4rem .5rem .4rem .8rem;
-    background:#141414;
-    color:#f4f1ec;
-    font-size:.8rem;
-    font-weight:600;
-  }
-
-  .video-close{
-    flex:0 0 auto;
-    width:1.9rem;
-    height:1.9rem;
-    border:none;
-    border-radius:50%;
-    background:rgba(255,255,255,.12);
-    color:#fff;
-    font-size:.95rem;
-    cursor:pointer;
-  }
-
-  .video-close:hover{ background:rgba(255,255,255,.24); }
-
-  .video-panel video{
-    flex:1 1 auto;
-    width:100%;
-    min-height:0;
-    object-fit:contain;
-    background:#000;
-  }
-
-  /* Wide screens: give the lyrics the left column instead of hiding them behind the video. */
-  @media (min-width:900px){
-    body.video-open main{
-      width:calc(100% - var(--video-w, 46vw));
-      max-width:none;
-      margin:0;
-      padding-left:2rem;
-      padding-right:1.2rem;
-    }
-    body.video-open .line .en{ display:none; }
-    body.video-open .line .jp{ flex:1 1 100%; }
-  }
-
-  /* Phones: the video docks at the bottom, lyrics scroll above it. */
-  @media (max-width:899px){
-    .video-panel{
-      top:auto;
-      left:0;
-      width:auto;
-      height:42vh;
-    }
-    body.video-open main{ padding-bottom:46vh; }
-  }
-
-  /* One docked player is enough; the MP3 bar steps aside for the video. */
-  body.video-open .player-bar{ display:none; }
-
-  @media print{
-    .video-panel{ display:none !important; }
-  }
-</style>
-</head>
-<body class="show-furi show-en">
-
-<!-- ================= STICKY HEADER ================= -->
-<header>
-  <div class="header-inner">
-    <div class="brand">
-      <span class="leaf">🍁</span>
-      <span class="name">Uru</span>
-      <span class="mini-title" id="miniTitle">愛と呼ぶなら</span>
-    </div>
-
-    <div class="toggles">
-      <button class="toggle" id="themeBtn"  aria-pressed="false" aria-label="Light / Dark mode" title="Toggle Light / Dark mode">🌓 <span class="tl">Light / Dark</span></button>
-      <button class="toggle" id="ttsBtn"    aria-pressed="false" aria-label="Text to speech" title="Read Japanese aloud — click a line to hear it">🔊 <span class="tl">TTS</span></button>
-      <div class="speed-wrap" title="Playback speed for all audio blocks">
-        <label for="speedRange">Speed</label>
-        <input type="range" id="speedRange" min="0.5" max="1.5" step="0.05" value="1">
-        <span class="val" id="speedVal">1.00×</span>
-      </div>
-      <button class="toggle" id="enBtn"     aria-pressed="true" aria-label="English translation" title="Show / hide English translation">🌐 <span class="tl">English</span></button>
-      <button class="toggle" id="furiBtn"   aria-pressed="true" aria-label="Furigana" title="Show / hide furigana above kanji">あ <span class="tl">Furigana</span></button>
-      <button class="toggle" id="sizeBtn"   aria-pressed="false" aria-label="Text size and weight" title="Increase font size &amp; weight">A⁺ <span class="tl">Size / Weight</span></button>
-    </div>
-
-    <img class="antonio-signature" src="Antonio.png" alt="ACG Applications" width="34" height="34" />
-  </div>
-</header>
-
-<main>
-
-  <!-- ================= TITLE ================= -->
-  <div class="song-head">
-    <h1 class="song-title">
-      <ruby>愛<rt>あい</rt></ruby>と<ruby>呼<rt>よ</rt></ruby>ぶなら
-    </h1>
-    <div class="meta">Uru<span class="dot">•</span>それを愛と呼ぶなら<span class="dot">•</span>ドラマ「マイファミリー」主題歌</div>
-    <div class="song-actions">
-      <button class="play-full-btn" id="playFullBtn"
-        data-name="Full song"
-        data-audio="瀬戸山智之助 - 【歌詞付き】それを愛と呼ぶなら⧸Uru(ウル)ドラマ「マイファミリー」主題歌.mp3"
-        data-label-play="Play full song" data-label-pause="Pause full song"
-        title="Play the complete song">
-        <span class="pf-icon">▶</span>
-        <span class="pf-text">Play full song</span>
-      </button>
-      <button class="play-full-btn karaoke" id="playKaraokeBtn"
-        data-name="Karaoke"
-        data-audio="Uru-Karaoke.mp3"
-        title="Play the karaoke version">
-        <span class="pf-icon">🎤</span>
-        <span class="pf-text">Karaoke</span>
-      </button>
-      <button class="play-full-btn vocals" id="playVocalsBtn"
-        data-name="Vocals"
-        data-audio="Uru-Vocals.mp3"
-        title="Play the vocal track">
-        <span class="pf-icon">🎙</span>
-        <span class="pf-text">Vocals</span>
-      </button>
-      <button class="play-full-btn video" id="videoBtn"
-        data-video="URU-Karaoke-Vid.mp4"
-        aria-pressed="false"
-        title="Watch the karaoke video beside the lyrics">
-        <span class="pf-icon">🎬</span>
-        <span class="pf-text">Video</span>
-      </button>
-    </div>
-  </div>
-
-  <!-- ================= INTRO (instrumental) ================= -->
-  <div class="audio-block instrumental" data-audio="00.intro.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause the intro">▶</button>
-      <span class="audio-label"><strong>Intro</strong> · instrumental</span>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 01 ================= -->
-  <div class="audio-block" data-audio="01.一つずつ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 01">▶</button>
-      <button class="play-btn vocals-btn" data-audio="01.一つずつ_vocals.mp3" aria-label="Play vocals only for block 01" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 01" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>01.</strong> 一つずつ</span>
-    </div>
-    <div class="line" data-jp="掛け違えていたボタン">
-      <div class="jp"><ruby>掛<rt>か</rt></ruby>け<ruby>違<rt>ちが</rt></ruby>えていたボタン</div>
-      <div class="en">The buttons I'd fastened all wrong</div>
-    </div>
-    <div class="line" data-jp="一つずつ">
-      <div class="jp"><ruby>一<rt>ひと</rt></ruby>つずつ</div>
-      <div class="en">One by one</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 02 ================= -->
-  <div class="audio-block" data-audio="02.この胸が教えている.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 02">▶</button>
-      <button class="play-btn vocals-btn" data-audio="02.この胸が教えている_vocals.mp3" aria-label="Play vocals only for block 02" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 02" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>02.</strong> この胸が教えている</span>
-    </div>
-    <div class="line" data-jp="下から順に外して">
-      <div class="jp"><ruby>下<rt>した</rt></ruby>から<ruby>順<rt>じゅん</rt></ruby>に<ruby>外<rt>はず</rt></ruby>して</div>
-      <div class="en">Undoing them from the bottom</div>
-    </div>
-    <div class="line" data-jp="もう一度重ねていく">
-      <div class="jp">もう<ruby>一<rt>いち</rt></ruby><ruby>度<rt>ど</rt></ruby><ruby>重<rt>かさ</rt></ruby>ねていく</div>
-      <div class="en">And fastening them once more</div>
-    </div>
-    <div class="line" data-jp="君がくれた時間と">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>がくれた<ruby>時<rt>じ</rt></ruby><ruby>間<rt>かん</rt></ruby>と</div>
-      <div class="en">The time you gave me</div>
-    </div>
-    <div class="line" data-jp="温かさを">
-      <div class="jp"><ruby>温<rt>あたた</rt></ruby>かさを</div>
-      <div class="en">And the warmth</div>
-    </div>
-    <div class="line" data-jp="この胸が教えている">
-      <div class="jp">この<ruby>胸<rt>むね</rt></ruby>が<ruby>教<rt>おし</rt></ruby>えている</div>
-      <div class="en">This heart is teaching me</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 03 ================= -->
-  <div class="audio-block" data-audio="03.感じてるよ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 03">▶</button>
-      <button class="play-btn vocals-btn" data-audio="03.感じてるよ_vocals.mp3" aria-label="Play vocals only for block 03" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 03" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>03.</strong> 感じてるよ</span>
-    </div>
-    <div class="line" data-jp="空が青いとか">
-      <div class="jp"><ruby>空<rt>そら</rt></ruby>が<ruby>青<rt>あお</rt></ruby>いとか</div>
-      <div class="en">That the sky is blue</div>
-    </div>
-    <div class="line" data-jp="花が咲くとか">
-      <div class="jp"><ruby>花<rt>はな</rt></ruby>が<ruby>咲<rt>さ</rt></ruby>くとか</div>
-      <div class="en">That flowers bloom</div>
-    </div>
-    <div class="line" data-jp="君が笑うとか">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>が<ruby>笑<rt>わら</rt></ruby>うとか</div>
-      <div class="en">That you smile</div>
-    </div>
-    <div class="line" data-jp="抱きしめるとか">
-      <div class="jp"><ruby>抱<rt>だ</rt></ruby>きしめるとか</div>
-      <div class="en">That we hold each other</div>
-    </div>
-    <div class="line" data-jp="すぐそばに">
-      <div class="jp">すぐそばに</div>
-      <div class="en">Right there beside me</div>
-    </div>
-    <div class="line" data-jp="あったこの幸せを">
-      <div class="jp">あったこの<ruby>幸<rt>しあわ</rt></ruby>せを</div>
-      <div class="en">This happiness that was always there</div>
-    </div>
-    <div class="line" data-jp="今痛いくらい">
-      <div class="jp"><ruby>今<rt>いま</rt></ruby><ruby>痛<rt>いた</rt></ruby>いくらい</div>
-      <div class="en">Now, so much it aches</div>
-    </div>
-    <div class="line" data-jp="感じてるよ">
-      <div class="jp"><ruby>感<rt>かん</rt></ruby>じてるよ</div>
-      <div class="en">I can feel it</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 04 ================= -->
-  <div class="audio-block" data-audio="04.迎えにいくから.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 04">▶</button>
-      <button class="play-btn vocals-btn" data-audio="04.迎えにいくから_vocals.mp3" aria-label="Play vocals only for block 04" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 04" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>04.</strong> 迎えにいくから</span>
-    </div>
-    <div class="line" data-jp="守りたいものがあると、">
-      <div class="jp"><ruby>守<rt>まも</rt></ruby>りたいものがあると、</div>
-      <div class="en">That there is something I want to protect,</div>
-    </div>
-    <div class="line" data-jp="そこに未来があるんだと">
-      <div class="jp">そこに<ruby>未<rt>み</rt></ruby><ruby>来<rt>らい</rt></ruby>があるんだと</div>
-      <div class="en">That the future is right there</div>
-    </div>
-    <div class="line" data-jp="君のいる場所まで">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>のいる<ruby>場<rt>ば</rt></ruby><ruby>所<rt>しょ</rt></ruby>まで</div>
-      <div class="en">To the place where you are</div>
-    </div>
-    <div class="line" data-jp="迎えにいくから">
-      <div class="jp"><ruby>迎<rt>むか</rt></ruby>えにいくから</div>
-      <div class="en">I'll come to meet you</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 05 ================= -->
-  <div class="audio-block" data-audio="05.笑わらってくれ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 05">▶</button>
-      <button class="play-btn vocals-btn" data-audio="05.笑わらってくれ_vocals.mp3" aria-label="Play vocals only for block 05" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 05" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>05.</strong> 笑わらってくれ</span>
-    </div>
-    <div class="line" data-jp="雨風に打たれて">
-      <div class="jp"><ruby>雨<rt>あめ</rt></ruby><ruby>風<rt>かぜ</rt></ruby>に<ruby>打<rt>う</rt></ruby>たれて</div>
-      <div class="en">Beaten by the wind and rain</div>
-    </div>
-    <div class="line" data-jp="ボロボロになったら">
-      <div class="jp">ボロボロになったら</div>
-      <div class="en">If I end up battered and worn</div>
-    </div>
-    <div class="line" data-jp="不格好な姿を">
-      <div class="jp"><ruby>不<rt>ふ</rt></ruby><ruby>格<rt>かっ</rt></ruby><ruby>好<rt>こう</rt></ruby>な<ruby>姿<rt>すがた</rt></ruby>を</div>
-      <div class="en">My clumsy, ungraceful figure</div>
-    </div>
-    <div class="line" data-jp="笑ってくれ">
-      <div class="jp"><ruby>笑<rt>わら</rt></ruby>ってくれ</div>
-      <div class="en">Laugh at it for me</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 06 ================= -->
-  <div class="audio-block" data-audio="06.離さないように.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 06">▶</button>
-      <button class="play-btn vocals-btn" data-audio="06.離さないように_vocals.mp3" aria-label="Play vocals only for block 06" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 06" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>06.</strong> 離さないように</span>
-    </div>
-    <div class="line" data-jp="一度転んだからこそ">
-      <div class="jp"><ruby>一<rt>いち</rt></ruby><ruby>度<rt>ど</rt></ruby><ruby>転<rt>ころ</rt></ruby>んだからこそ</div>
-      <div class="en">It's precisely because I fell once</div>
-    </div>
-    <div class="line" data-jp="見える世界があるなら">
-      <div class="jp"><ruby>見<rt>み</rt></ruby>える<ruby>世<rt>せ</rt></ruby><ruby>界<rt>かい</rt></ruby>があるなら</div>
-      <div class="en">That there's a world I can see now</div>
-    </div>
-    <div class="line" data-jp="もう二度とその手を">
-      <div class="jp">もう<ruby>二<rt>に</rt></ruby><ruby>度<rt>ど</rt></ruby>とその<ruby>手<rt>て</rt></ruby>を</div>
-      <div class="en">So that those hands, never again</div>
-    </div>
-    <div class="line" data-jp="離さないように">
-      <div class="jp"><ruby>離<rt>はな</rt></ruby>さないように</div>
-      <div class="en">I'll never let go</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 07 ================= -->
-  <div class="audio-block" data-audio="07.そこにあるんだよ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 07">▶</button>
-      <button class="play-btn vocals-btn" data-audio="07.そこにあるんだよ_vocals.mp3" aria-label="Play vocals only for block 07" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 07" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>07.</strong> そこにあるんだよ</span>
-    </div>
-    <div class="line" data-jp="やっと気づいたんだ">
-      <div class="jp">やっと<ruby>気<rt>き</rt></ruby>づいたんだ</div>
-      <div class="en">I've finally realized</div>
-    </div>
-    <div class="line" data-jp="君と過ごす日々">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>と<ruby>過<rt>す</rt></ruby>ごす<ruby>日<rt>ひ</rt></ruby><ruby>々<rt>び</rt></ruby></div>
-      <div class="en">The days I spend with you</div>
-    </div>
-    <div class="line" data-jp="本当に欲しかったものが">
-      <div class="jp"><ruby>本<rt>ほん</rt></ruby><ruby>当<rt>とう</rt></ruby>に<ruby>欲<rt>ほ</rt></ruby>しかったものが</div>
-      <div class="en">What I truly wanted all along</div>
-    </div>
-    <div class="line" data-jp="そこにあるんだよ">
-      <div class="jp">そこにあるんだよ</div>
-      <div class="en">Is right there, you know</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 08 ================= -->
-  <div class="audio-block" data-audio="08.大馬鹿者だ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 08">▶</button>
-      <button class="play-btn vocals-btn" data-audio="08.大馬鹿者だ_vocals.mp3" aria-label="Play vocals only for block 08" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 08" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>08.</strong> 大馬鹿者だ</span>
-    </div>
-    <div class="line" data-jp="一人で歩いて来た">
-      <div class="jp"><ruby>一<rt>ひと</rt></ruby><ruby>人<rt>り</rt></ruby>で<ruby>歩<rt>ある</rt></ruby>いて<ruby>来<rt>き</rt></ruby>た</div>
-      <div class="en">I walked all this way alone</div>
-    </div>
-    <div class="line" data-jp="顔をして">
-      <div class="jp"><ruby>顔<rt>かお</rt></ruby>をして</div>
-      <div class="en">Wearing that kind of face</div>
-    </div>
-    <div class="line" data-jp="失いかけてから">
-      <div class="jp"><ruby>失<rt>うしな</rt></ruby>いかけてから</div>
-      <div class="en">Only after nearly losing it all</div>
-    </div>
-    <div class="line" data-jp="ようやく目を覚ました">
-      <div class="jp">ようやく<ruby>目<rt>め</rt></ruby>を<ruby>覚<rt>さ</rt></ruby>ました</div>
-      <div class="en">Did I finally wake up</div>
-    </div>
-    <div class="line" data-jp="そばにあった存在の">
-      <div class="jp">そばにあった<ruby>存<rt>そん</rt></ruby><ruby>在<rt>ざい</rt></ruby>の</div>
-      <div class="en">The presence that was beside me</div>
-    </div>
-    <div class="line" data-jp="その温もり">
-      <div class="jp">その<ruby>温<rt>ぬく</rt></ruby>もり</div>
-      <div class="en">That warmth</div>
-    </div>
-    <div class="line" data-jp="僕はそう">
-      <div class="jp"><ruby>僕<rt>ぼく</rt></ruby>はそう</div>
-      <div class="en">I was, yes —</div>
-    </div>
-    <div class="line" data-jp="大馬鹿者だ">
-      <div class="jp"><ruby>大<rt>おお</rt></ruby><ruby>馬<rt>ば</rt></ruby><ruby>鹿<rt>か</rt></ruby><ruby>者<rt>もの</rt></ruby>だ</div>
-      <div class="en">A complete fool</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 09 ================= -->
-  <div class="audio-block" data-audio="09.この幼さも.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 09">▶</button>
-      <button class="play-btn vocals-btn" data-audio="09.この幼さも_vocals.mp3" aria-label="Play vocals only for block 09" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 09" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>09.</strong> この幼さも</span>
-    </div>
-    <div class="line" data-jp="初めて知る自分の">
-      <div class="jp"><ruby>初<rt>はじ</rt></ruby>めて<ruby>知<rt>し</rt></ruby>る<ruby>自<rt>じ</rt></ruby><ruby>分<rt>ぶん</rt></ruby>の</div>
-      <div class="en">The weakness of mine I'm learning for the first time</div>
-    </div>
-    <div class="line" data-jp="弱さとか">
-      <div class="jp"><ruby>弱<rt>よわ</rt></ruby>さとか</div>
-      <div class="en">My weakness, and</div>
-    </div>
-    <div class="line" data-jp="隠し切れなかった">
-      <div class="jp"><ruby>隠<rt>かく</rt></ruby>し<ruby>切<rt>き</rt></ruby>れなかった</div>
-      <div class="en">This childishness I couldn't fully hide</div>
-    </div>
-    <div class="line" data-jp="この幼さも">
-      <div class="jp">この<ruby>幼<rt>おさな</rt></ruby>さも</div>
-      <div class="en">All of it</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 10 ================= -->
-  <div class="audio-block" data-audio="10.くれたこと.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 10">▶</button>
-      <button class="play-btn vocals-btn" data-audio="10.くれたこと_vocals.mp3" aria-label="Play vocals only for block 10" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 10" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>10.</strong> くれたこと</span>
-    </div>
-    <div class="line" data-jp="きっと君は">
-      <div class="jp">きっと<ruby>君<rt>きみ</rt></ruby>は</div>
-      <div class="en">Surely you</div>
-    </div>
-    <div class="line" data-jp="知っていたんだろう">
-      <div class="jp"><ruby>知<rt>し</rt></ruby>っていたんだろう</div>
-      <div class="en">Knew it all along</div>
-    </div>
-    <div class="line" data-jp="それでも信じて">
-      <div class="jp">それでも<ruby>信<rt>しん</rt></ruby>じて</div>
-      <div class="en">And even so, you kept believing</div>
-    </div>
-    <div class="line" data-jp="くれたこと">
-      <div class="jp">くれたこと</div>
-      <div class="en">In me</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 11 ================= -->
-  <div class="audio-block" data-audio="11.迎えにいくから.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 11">▶</button>
-      <button class="play-btn vocals-btn" data-audio="11.迎えにいくから_vocals.mp3" aria-label="Play vocals only for block 11" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 11" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>11.</strong> 迎えにいくから</span>
-    </div>
-    <div class="line" data-jp="返したいものがあると">
-      <div class="jp"><ruby>返<rt>かえ</rt></ruby>したいものがあると</div>
-      <div class="en">That there's something I want to give back</div>
-    </div>
-    <div class="line" data-jp="見つけたいものがあると">
-      <div class="jp"><ruby>見<rt>み</rt></ruby>つけたいものがあると</div>
-      <div class="en">That there's something I want to find</div>
-    </div>
-    <div class="line" data-jp="君のいる場所まで">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>のいる<ruby>場<rt>ば</rt></ruby><ruby>所<rt>しょ</rt></ruby>まで</div>
-      <div class="en">To the place where you are</div>
-    </div>
-    <div class="line" data-jp="迎えにいくから">
-      <div class="jp"><ruby>迎<rt>むか</rt></ruby>えにいくから</div>
-      <div class="en">I'll come to meet you</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 12 ================= -->
-  <div class="audio-block" data-audio="12.伝えにいくよ.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 12">▶</button>
-      <button class="play-btn vocals-btn" data-audio="12.伝えにいくよ_vocals.mp3" aria-label="Play vocals only for block 12" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 12" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>12.</strong> 伝えにいくよ</span>
-    </div>
-    <div class="line" data-jp="雨風に打たれて">
-      <div class="jp"><ruby>雨<rt>あめ</rt></ruby><ruby>風<rt>かぜ</rt></ruby>に<ruby>打<rt>う</rt></ruby>たれて</div>
-      <div class="en">Beaten by the wind and rain</div>
-    </div>
-    <div class="line" data-jp="ボロボロになっても">
-      <div class="jp">ボロボロになっても</div>
-      <div class="en">Even if I'm battered and worn</div>
-    </div>
-    <div class="line" data-jp="変らないこの想いを">
-      <div class="jp"><ruby>変<rt>か</rt></ruby>らないこの<ruby>想<rt>おも</rt></ruby>いを</div>
-      <div class="en">This feeling that will never change</div>
-    </div>
-    <div class="line" data-jp="伝えにいくよ">
-      <div class="jp"><ruby>伝<rt>つた</rt></ruby>えにいくよ</div>
-      <div class="en">I'll come to tell you</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 13 ================= -->
-  <div class="audio-block" data-audio="13.たった一つの輝き.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 13">▶</button>
-      <button class="play-btn vocals-btn" data-audio="13.たった一つの輝き_vocals.mp3" aria-label="Play vocals only for block 13" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 13" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>13.</strong> たった一つの輝き</span>
-    </div>
-    <div class="line" data-jp="見落としてきた涙も">
-      <div class="jp"><ruby>見<rt>み</rt></ruby><ruby>落<rt>お</rt></ruby>としてきた<ruby>涙<rt>なみだ</rt></ruby>も</div>
-      <div class="en">The tears I overlooked</div>
-    </div>
-    <div class="line" data-jp="すり替えてきた感情も">
-      <div class="jp">すり<ruby>替<rt>か</rt></ruby>えてきた<ruby>感<rt>かん</rt></ruby><ruby>情<rt>じょう</rt></ruby>も</div>
-      <div class="en">The feelings I swapped out</div>
-    </div>
-    <div class="line" data-jp="取り戻すように走れ">
-      <div class="jp"><ruby>取<rt>と</rt></ruby>り<ruby>戻<rt>もど</rt></ruby>すように<ruby>走<rt>はし</rt></ruby>れ</div>
-      <div class="en">Run — as if to reclaim them all</div>
-    </div>
-    <div class="line" data-jp="走れ">
-      <div class="jp"><ruby>走<rt>はし</rt></ruby>れ</div>
-      <div class="en">Run</div>
-    </div>
-    <div class="line" data-jp="同じものはない">
-      <div class="jp"><ruby>同<rt>おな</rt></ruby>じものはない</div>
-      <div class="en">There is nothing else like it</div>
-    </div>
-    <div class="line" data-jp="たった一つの輝き">
-      <div class="jp">たった<ruby>一<rt>ひと</rt></ruby>つの<ruby>輝<rt>かがや</rt></ruby>き</div>
-      <div class="en">That one single radiance</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 14 ================= -->
-  <div class="audio-block" data-audio="14.揺るがない形になって.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 14">▶</button>
-      <button class="play-btn vocals-btn" data-audio="14.揺るがない形になって_vocals.mp3" aria-label="Play vocals only for block 14" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 14" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>14.</strong> 揺るがない形になって</span>
-    </div>
-    <div class="line" data-jp="支え合える喜びも">
-      <div class="jp"><ruby>支<rt>ささ</rt></ruby>え<ruby>合<rt>あ</rt></ruby>える<ruby>喜<rt>よろこ</rt></ruby>びも</div>
-      <div class="en">The joy of holding each other up</div>
-    </div>
-    <div class="line" data-jp="分かち合える悲しみも">
-      <div class="jp"><ruby>分<rt>わ</rt></ruby>かち<ruby>合<rt>あ</rt></ruby>える<ruby>悲<rt>かな</rt></ruby>しみも</div>
-      <div class="en">The sorrow we can share</div>
-    </div>
-    <div class="line" data-jp="いつの日か">
-      <div class="jp">いつの<ruby>日<rt>ひ</rt></ruby>か</div>
-      <div class="en">Someday</div>
-    </div>
-    <div class="line" data-jp="揺るがない形になって">
-      <div class="jp"><ruby>揺<rt>ゆ</rt></ruby>るがない<ruby>形<rt>かたち</rt></ruby>になって</div>
-      <div class="en">Will take an unshakable shape</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 15 ================= -->
-  <div class="audio-block" data-audio="15.それを愛と呼ぶなら.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 15">▶</button>
-      <button class="play-btn vocals-btn" data-audio="15.それを愛と呼ぶなら_vocals.mp3" aria-label="Play vocals only for block 15" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 15" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>15.</strong> それを愛と呼ぶなら</span>
-    </div>
-    <div class="line" data-jp="世界中を探しても">
-      <div class="jp"><ruby>世<rt>せ</rt></ruby><ruby>界<rt>かい</rt></ruby><ruby>中<rt>じゅう</rt></ruby>を<ruby>探<rt>さが</rt></ruby>しても</div>
-      <div class="en">Even if you search the whole world</div>
-    </div>
-    <div class="line" data-jp="ここにしかないもの">
-      <div class="jp">ここにしかないもの</div>
-      <div class="en">Something that exists only here</div>
-    </div>
-    <div class="line" data-jp="それを愛と呼ぶなら">
-      <div class="jp">それを<ruby>愛<rt>あい</rt></ruby>と<ruby>呼<rt>よ</rt></ruby>ぶなら</div>
-      <div class="en">If we call that love</div>
-    </div>
-  </div>
-
-  <!-- ================= BLOCK 16 ================= -->
-  <div class="audio-block" data-audio="16.君がいて欲しい.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause block 16">▶</button>
-      <button class="play-btn vocals-btn" data-audio="16.君がいて欲しい_vocals.mp3" aria-label="Play vocals only for block 16" title="Vocals only — sing along">🎤</button>
-      <button class="loop-btn" aria-label="Toggle loop for block 16" aria-pressed="false" title="Loop this block">🔁</button>
-      <span class="audio-label"><strong>16.</strong> 君がいて欲しい</span>
-    </div>
-    <div class="line" data-jp="守りたいものがあると">
-      <div class="jp"><ruby>守<rt>まも</rt></ruby>りたいものがあると</div>
-      <div class="en">That there is something I want to protect</div>
-    </div>
-    <div class="line" data-jp="そこに未来があるんだと">
-      <div class="jp">そこに<ruby>未<rt>み</rt></ruby><ruby>来<rt>らい</rt></ruby>があるんだと</div>
-      <div class="en">That the future is right there</div>
-    </div>
-    <div class="line" data-jp="君のいる場所まで">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>のいる<ruby>場<rt>ば</rt></ruby><ruby>所<rt>しょ</rt></ruby>まで</div>
-      <div class="en">To the place where you are</div>
-    </div>
-    <div class="line" data-jp="迎えにいくから">
-      <div class="jp"><ruby>迎<rt>むか</rt></ruby>えにいくから</div>
-      <div class="en">I'll come to meet you</div>
-    </div>
-    <div class="line" data-jp="今はっきりと言えるよ">
-      <div class="jp"><ruby>今<rt>いま</rt></ruby>はっきりと<ruby>言<rt>い</rt></ruby>えるよ</div>
-      <div class="en">Now I can say it clearly</div>
-    </div>
-    <div class="line" data-jp="大切な人よ">
-      <div class="jp"><ruby>大<rt>たい</rt></ruby><ruby>切<rt>せつ</rt></ruby>な<ruby>人<rt>ひと</rt></ruby>よ</div>
-      <div class="en">My precious one</div>
-    </div>
-    <div class="line" data-jp="いつまでも">
-      <div class="jp">いつまでも</div>
-      <div class="en">Forever</div>
-    </div>
-    <div class="line" data-jp="僕のそばには">
-      <div class="jp"><ruby>僕<rt>ぼく</rt></ruby>のそばには</div>
-      <div class="en">By my side</div>
-    </div>
-    <div class="line" data-jp="君がいて欲しい">
-      <div class="jp"><ruby>君<rt>きみ</rt></ruby>がいて<ruby>欲<rt>ほ</rt></ruby>しい</div>
-      <div class="en">I want you to be there</div>
-    </div>
-  </div>
-
-  <!-- ================= END (instrumental) ================= -->
-  <div class="audio-block instrumental" data-audio="17.end.mp3">
-    <div class="audio-header">
-      <button class="play-btn" aria-label="Play or pause the outro">▶</button>
-      <span class="audio-label"><strong>End</strong> · instrumental</span>
-    </div>
-  </div>
-
-  <div class="divider">💕💕💕 Uru 💕💕💕</div>
-
-</main>
-
-<script>
-(function () {
-  "use strict";
-
-  /* ---------- Register Service Worker for PWA ---------- */
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(registration => {
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-          // Ask for durable storage so the ~74 MB media cache is not evicted when the
-          // device runs low on space - an eviction means downloading it all again.
-          if (navigator.storage && navigator.storage.persist) {
-            navigator.storage.persist().catch(function () {});
-          }
-        })
-        .catch(err => {
-          console.log('ServiceWorker registration failed: ', err);
-        });
-    });
-  }
-
-  var body      = document.body;
-  var themeBtn  = document.getElementById('themeBtn');
-  var ttsBtn    = document.getElementById('ttsBtn');
-  var enBtn     = document.getElementById('enBtn');
-  var furiBtn   = document.getElementById('furiBtn');
-  var sizeBtn   = document.getElementById('sizeBtn');
-  var speedRange= document.getElementById('speedRange');
-  var speedVal  = document.getElementById('speedVal');
-
-  /* ---------- saved preferences ---------- */
-  var PREFS_KEY = 'uru-prefs-v1';
-  function loadPrefs(){
-    try { return JSON.parse(localStorage.getItem(PREFS_KEY) || "{}") || {}; } catch (e) { return {}; }
-  }
-  function savePref(key, val){
-    try {
-      var cur = loadPrefs();
-      cur[key] = val;
-      localStorage.setItem(PREFS_KEY, JSON.stringify(cur));
-    } catch (e) { /* private mode: settings just will not persist */ }
-  }
-  function pref(key, fallback){
-    var cur = loadPrefs();
-    return Object.prototype.hasOwnProperty.call(cur, key) ? cur[key] : fallback;
-  }
-
-  /* ---------- generic toggle helper ---------- */
-  function bindToggle(btn, cls, initial) {
-    var on = initial;
-    btn.setAttribute('aria-pressed', String(on));
-    body.classList.toggle(cls, on);   // body ships with show-furi/show-en already set
-    btn.addEventListener('click', function () {
-      on = !on;
-      btn.setAttribute('aria-pressed', String(on));
-      body.classList.toggle(cls, on);
-      savePref(cls, on);
-      if (cls === 'tts-on' && !on) stopSpeaking();
-    });
-  }
-
-  bindToggle(enBtn,     'show-en',     pref('show-en',   true));
-  bindToggle(furiBtn,   'show-furi',   pref('show-furi', true));
-  bindToggle(sizeBtn,   'big',         pref('big',       false));
-
-  /* ---------- theme toggle ---------- */
-  var isDark = pref('dark', false);
-  themeBtn.setAttribute('aria-pressed', String(isDark));
-  if (isDark) body.classList.add('dark-mode');
-  themeBtn.addEventListener('click', function () {
-    isDark = !isDark;
-    themeBtn.setAttribute('aria-pressed', String(isDark));
-    body.classList.toggle('dark-mode', isDark);
-    savePref('dark', isDark);
-  });
-
-  /* ---------- TTS ---------- */
-  var synth = window.speechSynthesis;
-  var ttsOn = pref('tts', false);
-  if (ttsOn) { body.classList.add('tts-on'); }
-  var currentLine = null;
-  var voiceJa = null;
-
-  function pickVoice() {
-    if (!synth) return;
-    var voices = synth.getVoices() || [];
-    voiceJa = voices.filter(function (v) {
-      return v.lang && v.lang.toLowerCase().indexOf('ja') === 0;
-    })[0] || null;
-  }
-  if (synth) {
-    pickVoice();
-    synth.onvoiceschanged = pickVoice;
-  }
-
-  function clearHighlight() {
-    if (currentLine) currentLine.classList.remove('speaking');
-    currentLine = null;
-  }
-
-  function stopSpeaking() {
-    if (synth) synth.cancel();
-    clearHighlight();
-  }
-
-  function speak(text, el) {
-    if (!synth || !text) return;
-    synth.cancel();
-    clearHighlight();
-    currentLine = el || null;
-    if (currentLine) currentLine.classList.add('speaking');
-
-    var u = new SpeechSynthesisUtterance(text);
-    u.lang = 'ja-JP';
-    u.rate = 0.9;
-    u.pitch = 1;
-    if (voiceJa) u.voice = voiceJa;
-    u.onend = function () {
-      if (currentLine === el) clearHighlight();
-    };
-    u.onerror = function () {
-      if (currentLine === el) clearHighlight();
-    };
-    synth.speak(u);
-  }
-
-  /* TTS toggle button */
-  ttsBtn.setAttribute('aria-pressed', String(ttsOn));
-  ttsBtn.addEventListener('click', function () {
-    ttsOn = !ttsOn;
-    ttsBtn.setAttribute('aria-pressed', String(ttsOn));
-    body.classList.toggle('tts-on', ttsOn);
-    savePref('tts', ttsOn);
-    if (!ttsOn) stopSpeaking();
-  });
-
-  /* click a line to hear it */
-  var speakables = document.querySelectorAll('.line[data-jp]');
-  Array.prototype.forEach.call(speakables, function (el) {
-    el.addEventListener('click', function () {
-      if (!ttsOn) return;
-      var text = el.getAttribute('data-jp');
-      if (currentLine === el && synth && synth.speaking) {
-        stopSpeaking();
-        return;
-      }
-      speak(text, el);
-    });
-  });
-
-  /* ---------- audio playback ---------- */
-  var blocks = document.querySelectorAll('.audio-block');
-  var currentAudio = null;
-  var currentSrc = null;   // which file of the block is playing
-  var currentBlock = null;
-  var currentPlayBtn = null;
-  var playbackRate = pref('rate', 1);
-
-  function resetUI() {
-    if (currentBlock) currentBlock.classList.remove('playing');
-    if (currentPlayBtn) currentPlayBtn.textContent = '▶';
-    currentAudio = null;
-    currentSrc = null;
-    currentBlock = null;
-    currentPlayBtn = null;
-    updatePlayerBar();
-  }
-
-  function pauseCurrent() {
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-    resetUI();
-  }
-
-  function playBlock(block, playBtn, srcOverride) {
-    var src = srcOverride || block.getAttribute('data-audio');
-    if (!src) return;
-
-    // If this is the currently playing block, toggle pause
-    if (currentBlock === block && currentSrc === src && currentAudio && !currentAudio.paused) {
-      pauseCurrent();
-      return;
-    }
-
-    // Stop anything currently playing
-    if (currentAudio) {
-      currentAudio.pause();
-      currentAudio.currentTime = 0;
-    }
-    resetUI();
-
-    // Stop TTS if it's speaking when audio starts
-    if (synth && synth.speaking) stopSpeaking();
-
-    var audio = new Audio();
-    audio.src = encodeURI(src);
-    audio.playbackRate = playbackRate;
-    audio.preload = 'auto';
-
-    // Read loop state from this block's loop button
-    var loopBtn = block.querySelector('.loop-btn');
-    var isLooping = loopBtn && loopBtn.getAttribute('aria-pressed') === 'true';
-    audio.loop = !!isLooping;
-
-    currentAudio = audio;
-    currentBlock = block;
-    currentPlayBtn = playBtn;
-
-    block.classList.add('playing');
-    playBtn.textContent = '❚❚';
-
-    audio.addEventListener('play', updatePlayerBar);
-    audio.addEventListener('pause', updatePlayerBar);
-    audio.addEventListener('ended', function () {
-      if (currentAudio === audio) resetUI();
-    });
-    audio.addEventListener('error', function () {
-      if (currentAudio === audio) {
-        playBtn.textContent = '⚠';
-        setTimeout(function () {
-          if (currentAudio === audio) resetUI();
-        }, 1200);
-      }
-    });
-
-    currentSrc = src;
-    var playPromise = audio.play();
-    updatePlayerBar();
-    if (playPromise && typeof playPromise.catch === 'function') {
-      playPromise.catch(function () {
-        playBtn.textContent = '▶';
-        block.classList.remove('playing');
-      });
-    }
-  }
-
-  Array.prototype.forEach.call(blocks, function (block) {
-    var playBtn = block.querySelector('.play-btn');
-    var loopBtn = block.querySelector('.loop-btn');
-
-    if (playBtn) {
-      playBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        playBlock(block, playBtn);
-      });
-    }
-
-    if (loopBtn) {
-      loopBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var on = loopBtn.getAttribute('aria-pressed') === 'true';
-        on = !on;
-        loopBtn.setAttribute('aria-pressed', String(on));
-        // If this block is currently playing, update the live audio element
-        if (currentBlock === block && currentAudio) {
-          currentAudio.loop = on;
-        }
-      });
-    }
-  });
-
-  /* ---------- speed control ---------- */
-  function updateSpeedLabel() {
-    speedVal.textContent = playbackRate.toFixed(2) + '×';
-  }
-
-  speedRange.addEventListener('input', function () {
-    playbackRate = parseFloat(speedRange.value);
-    savePref('rate', playbackRate);
-    updateSpeedLabel();
-    if (currentAudio) {
-      currentAudio.playbackRate = playbackRate;
-    }
-  });
-  speedRange.value = String(playbackRate);
-  updateSpeedLabel();
-
-  /* ---- floating player bar ---- */
-  var playerBar = null;
-  var pbLabel = null;
-  var pbToggle = null;
-
-  // A stable name for whatever is playing: pills carry data-name, blocks use their
-  // own label. (The pill text toggles between Play/Pause, so it is no use here.)
-  function activeTrackLabel() {
-    if (!currentBlock) return "";
-    var base = currentBlock.getAttribute("data-name");
-    if (!base) {
-      var lab = currentBlock.querySelector(".audio-label");
-      if (lab) base = lab.textContent.replace(/\s+/g, " ").trim();
-    }
-    if (!base) return "";
-    // block 08 playing its vocals track should say so in the bar
-    if (currentPlayBtn && currentPlayBtn.classList.contains("vocals-btn")) {
-      return base + " · vocals";
-    }
-    return base;
-  }
-
-  function updatePlayerBar() {
-    if (!playerBar) return;
-    var active = !!currentAudio;
-    var playing = active && !currentAudio.paused;
-
-    // The three title pills mirror the real transport state, so pausing from the bar
-    // also puts them back to "Play ..." instead of leaving a stale label.
-    Array.prototype.forEach.call(
-      document.querySelectorAll(".play-full-btn"),
-      function (btn) {
-        var mine = active && currentBlock === btn;
-        btn.classList.toggle("playing", mine && playing);
-        var txt = btn.querySelector(".pf-text");
-        var playLabel = btn.getAttribute("data-label-play");
-        var pauseLabel = btn.getAttribute("data-label-pause");
-        if (txt && playLabel && pauseLabel) {
-          txt.textContent = mine && playing ? pauseLabel : playLabel;
-        }
-      }
-    );
-
-    if (active) {
-      if (pbLabel) pbLabel.textContent = activeTrackLabel();
-      if (pbToggle) {
-        pbToggle.textContent = playing ? "❚❚" : "▶";
-        pbToggle.setAttribute("aria-label", playing ? "Pause" : "Resume");
-      }
-    }
-    playerBar.classList.toggle("show", active);
-  }
-
-  function buildPlayerBar() {
-    playerBar = document.createElement("div");
-    playerBar.className = "player-bar";
-    playerBar.setAttribute("role", "region");
-    playerBar.setAttribute("aria-label", "Now playing");
-
-    var dot = document.createElement("span");
-    dot.className = "pb-dot";
-    dot.setAttribute("aria-hidden", "true");
-
-    pbLabel = document.createElement("span");
-    pbLabel.className = "pb-label";
-
-    pbToggle = document.createElement("button");
-    pbToggle.type = "button";
-    pbToggle.textContent = "❚❚";
-    pbToggle.setAttribute("aria-label", "Pause");
-    pbToggle.addEventListener("click", function () {
-      if (!currentAudio) return;
-      if (currentAudio.paused) {
-        var p = currentAudio.play();
-        if (p && p.catch) p.catch(function () {});
-      } else {
-        currentAudio.pause();
-      }
-      updatePlayerBar();
-    });
-
-    var stopBtn = document.createElement("button");
-    stopBtn.type = "button";
-    stopBtn.className = "pb-stop";
-    stopBtn.textContent = "✕";
-    stopBtn.setAttribute("aria-label", "Stop");
-    stopBtn.title = "Stop";
-    stopBtn.addEventListener("click", function () {
-      pauseCurrent();
-      updatePlayerBar();
-    });
-
-    playerBar.appendChild(dot);
-    playerBar.appendChild(pbLabel);
-    playerBar.appendChild(pbToggle);
-    playerBar.appendChild(stopBtn);
-    document.body.appendChild(playerBar);
-  }
-
-  /* Vocals-only buttons: same block, different file. */
-  Array.prototype.forEach.call(
-    document.querySelectorAll(".vocals-btn"),
-    function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        playBlock(btn.closest(".audio-block"), btn, btn.getAttribute("data-audio"));
-      });
-    }
-  );
-
-  /* Full song and karaoke: one handler for every title pill. A pill whose label
-     changes while playing carries data-label-play / data-label-pause. */
-  Array.prototype.forEach.call(
-    document.querySelectorAll(".play-full-btn"),
-    function (btn) {
-      btn.addEventListener("click", function (e) {
-        e.stopPropagation();
-        playBlock(btn, btn.querySelector(".pf-icon"));
-        var txt = btn.querySelector(".pf-text");
-        var playLabel = btn.getAttribute("data-label-play");
-        var pauseLabel = btn.getAttribute("data-label-pause");
-        if (txt && playLabel && pauseLabel) {
-          txt.textContent = btn.classList.contains("playing") ? pauseLabel : playLabel;
-        }
-      });
-    }
-  );
-
-  /* stop everything when leaving the page */
-  window.addEventListener('beforeunload', function() {
-    pauseCurrent();
+function cycleVoiceMode() {
+  var next = (VOICE_MODES.indexOf(voiceMode) + 1) % VOICE_MODES.length;
+  voiceMode = VOICE_MODES[next];
+  savePref("voiceMode", voiceMode);
+  if (voiceMode === "off") {
     stopSpeaking();
+    stopLineAudio();
+    updatePlayerBar();
+  }
+  updateVoiceButton();
+}
+
+// line recordings are named "NN-<sentence>.mp3", numbered in document order
+function lineIndexOf(el) {
+  return Array.prototype.indexOf.call(speakables, el) + 1;
+}
+
+function lineRecordingUrl(el) {
+  var n = lineIndexOf(el);
+  var text = el.getAttribute("data-jp") || "";
+  if (!n || !text) return "";
+  return (n < 10 ? "0" + n : String(n)) + "-" + text + ".mp3";
+}
+
+function stopLineAudio() {
+  if (lineAudio) {
+    lineAudio.pause();
+    lineAudio = null;
+  }
+  lineLabel = "";
+}
+
+function playLineRecording(el) {
+  var url = lineRecordingUrl(el);
+  if (!url) return false;
+
+  stopLineAudio();
+  pauseCurrent();      // a block or title track would talk over it
+  stopSpeaking();
+
+  var audio = new Audio();
+  audio.src = encodeURI(url);
+  audio.playbackRate = playbackRate;
+  lineAudio = audio;
+  lineLabel = el.getAttribute("data-jp") || "";
+
+  clearHighlight();
+  currentLine = el;
+  el.classList.add("speaking");
+
+  audio.addEventListener("play", updatePlayerBar);
+  audio.addEventListener("pause", updatePlayerBar);
+  audio.addEventListener("ended", function () {
+    if (lineAudio === audio) { lineAudio = null; lineLabel = ""; }
+    if (currentLine === el) clearHighlight();
+    updatePlayerBar();
+  });
+  audio.addEventListener("error", function () {
+    // no recording for this line - fall back to the computer voice
+    if (lineAudio === audio) { lineAudio = null; lineLabel = ""; }
+    if (currentLine === el) clearHighlight();
+    speak(el.getAttribute("data-jp") || "", el);
+    updatePlayerBar();
   });
 
-  /* Dock the song title in the header once the real one leaves the viewport. A passive
+  var p = audio.play();
+  if (p && p.catch) p.catch(function () {});
+  updatePlayerBar();
+  return true;
+}
+
+/* TTS toggle button */
+        /* voice switch: off -> recorded -> TTS -> off */
+        updateVoiceButton();
+        if (voiceBtn) {
+          voiceBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            cycleVoiceMode();
+          });
+        }
+
+        /* click a line to hear it, using whichever voice source is selected */
+        var speakables = (function () {
+          return Array.prototype.slice.call(document.querySelectorAll(".line[data-jp]"));
+        })();
+        Array.prototype.forEach.call(speakables, function (el) {
+          el.addEventListener("click", function () {
+            if (voiceMode === "off") return;
+
+            if (voiceMode === "rec") {
+              // tapping the line that is playing stops it
+              if (lineAudio && currentLine === el && !lineAudio.paused) {
+                stopLineAudio();
+                clearHighlight();
+                updatePlayerBar();
+                return;
+              }
+              // if this line has no recording the handler falls back to TTS
+              playLineRecording(el);
+              return;
+            }
+
+            // a line recording would talk over the computer voice
+            if (lineAudio) {
+              stopLineAudio();
+              updatePlayerBar();
+            }
+
+            var text = el.getAttribute("data-jp");
+            if (currentLine === el && synth && synth.speaking) {
+              stopSpeaking();
+              return;
+            }
+            speak(text, el);
+          });
+        });
+
+        /* ---------- audio playback ---------- */
+        var blocks = document.querySelectorAll(".audio-block");
+        var currentAudio = null;
+        var currentSrc = null; // which file of the block is playing
+        var currentBlock = null;
+        var currentPlayBtn = null;
+        var playbackRate = pref("rate", 1);
+
+        function resetUI() {
+          if (currentBlock) currentBlock.classList.remove("playing");
+          if (currentPlayBtn) currentPlayBtn.textContent = "▶";
+          currentAudio = null;
+          currentSrc = null;
+          currentBlock = null;
+          currentPlayBtn = null;
+          updatePlayerBar();
+        }
+
+        function pauseCurrent() {
+          if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+          }
+          resetUI();
+        }
+
+        function playBlock(block, playBtn, srcOverride) {
+          var src = srcOverride || block.getAttribute("data-audio");
+          if (!src) return;
+
+          // If this is the currently playing block, toggle pause
+          if (
+            currentBlock === block &&
+            currentSrc === src &&
+            currentAudio &&
+            !currentAudio.paused
+          ) {
+            pauseCurrent();
+            return;
+          }
+
+          // Stop anything currently playing
+          if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+          }
+          resetUI();
+
+          // Stop TTS if it's speaking when audio starts
+          if (synth && synth.speaking) stopSpeaking();
+
+          var audio = new Audio();
+          audio.src = encodeURI(src);
+          audio.playbackRate = playbackRate;
+          audio.preload = "auto";
+
+          // Read loop state from this block's loop button
+          var loopBtn = block.querySelector(".loop-btn");
+          var isLooping =
+            loopBtn && loopBtn.getAttribute("aria-pressed") === "true";
+          audio.loop = !!isLooping;
+
+          currentAudio = audio;
+          currentBlock = block;
+          currentPlayBtn = playBtn;
+
+          block.classList.add("playing");
+          playBtn.textContent = "❚❚";
+
+          audio.addEventListener("play", updatePlayerBar);
+          audio.addEventListener("pause", updatePlayerBar);
+          audio.addEventListener("ended", function () {
+            if (currentAudio === audio) resetUI();
+          });
+          audio.addEventListener("error", function () {
+            if (currentAudio === audio) {
+              playBtn.textContent = "⚠";
+              setTimeout(function () {
+                if (currentAudio === audio) resetUI();
+              }, 1200);
+            }
+          });
+
+          currentSrc = src;
+          var playPromise = audio.play();
+          updatePlayerBar();
+          if (playPromise && typeof playPromise.catch === "function") {
+            playPromise.catch(function () {
+              playBtn.textContent = "▶";
+              block.classList.remove("playing");
+            });
+          }
+        }
+
+        Array.prototype.forEach.call(blocks, function (block) {
+          var playBtn = block.querySelector(".play-btn");
+          var loopBtn = block.querySelector(".loop-btn");
+
+          if (playBtn) {
+            playBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              playBlock(block, playBtn);
+            });
+          }
+
+          if (loopBtn) {
+            loopBtn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              var on = loopBtn.getAttribute("aria-pressed") === "true";
+              on = !on;
+              loopBtn.setAttribute("aria-pressed", String(on));
+              // If this block is currently playing, update the live audio element
+              if (currentBlock === block && currentAudio) {
+                currentAudio.loop = on;
+              }
+            });
+          }
+        });
+
+        /* ---------- speed control ---------- */
+        function updateSpeedLabel() {
+          speedVal.textContent = playbackRate.toFixed(2) + "×";
+        }
+
+        speedRange.addEventListener("input", function () {
+          playbackRate = parseFloat(speedRange.value);
+          savePref("rate", playbackRate);
+          updateSpeedLabel();
+          if (currentAudio) {
+            currentAudio.playbackRate = playbackRate;
+          }
+        });
+        speedRange.value = String(playbackRate);
+        updateSpeedLabel();
+
+        /* ---- floating player bar ---- */
+        var playerBar = null;
+        var pbLabel = null;
+        var pbToggle = null;
+
+        // A stable name for whatever is playing: pills carry data-name, blocks use their
+        // own label. (The pill text toggles between Play/Pause, so it is no use here.)
+        function activeTrackLabel() {
+          if (!currentBlock) return lineLabel || "";
+          var base = currentBlock.getAttribute("data-name");
+          if (!base) {
+            var lab = currentBlock.querySelector(".audio-label");
+            if (lab) base = lab.textContent.replace(/\s+/g, " ").trim();
+          }
+          if (!base) return "";
+          // block 08 playing its vocals track should say so in the bar
+          if (
+            currentPlayBtn &&
+            currentPlayBtn.classList.contains("vocals-btn")
+          ) {
+            return base + " · vocals";
+          }
+          return base;
+        }
+
+        function updatePlayerBar() {
+          if (!playerBar) return;
+          var media = currentAudio || lineAudio;
+          var active = !!media;
+          var playing = active && !media.paused;
+
+          // The three title pills mirror the real transport state, so pausing from the bar
+          // also puts them back to "Play ..." instead of leaving a stale label.
+          Array.prototype.forEach.call(
+            document.querySelectorAll(".play-full-btn"),
+            function (btn) {
+              var mine = active && currentBlock === btn;
+              btn.classList.toggle("playing", mine && playing);
+              var txt = btn.querySelector(".pf-text");
+              var playLabel = btn.getAttribute("data-label-play");
+              var pauseLabel = btn.getAttribute("data-label-pause");
+              if (txt && playLabel && pauseLabel) {
+                txt.textContent = mine && playing ? pauseLabel : playLabel;
+              }
+            },
+          );
+
+          if (active) {
+            if (pbLabel) pbLabel.textContent = activeTrackLabel();
+            if (pbToggle) {
+              pbToggle.textContent = playing ? "❚❚" : "▶";
+              pbToggle.setAttribute("aria-label", playing ? "Pause" : "Resume");
+            }
+          }
+          playerBar.classList.toggle("show", active);
+        }
+
+        function buildPlayerBar() {
+          playerBar = document.createElement("div");
+          playerBar.className = "player-bar";
+          playerBar.setAttribute("role", "region");
+          playerBar.setAttribute("aria-label", "Now playing");
+
+          var dot = document.createElement("span");
+          dot.className = "pb-dot";
+          dot.setAttribute("aria-hidden", "true");
+
+          pbLabel = document.createElement("span");
+          pbLabel.className = "pb-label";
+
+          pbToggle = document.createElement("button");
+          pbToggle.type = "button";
+          pbToggle.textContent = "❚❚";
+          pbToggle.setAttribute("aria-label", "Pause");
+          pbToggle.addEventListener("click", function () {
+            var media = currentAudio || lineAudio;
+            if (!media) return;
+            if (media.paused) {
+              var p = media.play();
+              if (p && p.catch) p.catch(function () {});
+            } else {
+              media.pause();
+            }
+            updatePlayerBar();
+          });
+
+          var stopBtn = document.createElement("button");
+          stopBtn.type = "button";
+          stopBtn.className = "pb-stop";
+          stopBtn.textContent = "✕";
+          stopBtn.setAttribute("aria-label", "Stop");
+          stopBtn.title = "Stop";
+          stopBtn.addEventListener("click", function () {
+            pauseCurrent();
+            stopLineAudio();
+            clearHighlight();
+            updatePlayerBar();
+          });
+
+          playerBar.appendChild(dot);
+          playerBar.appendChild(pbLabel);
+          playerBar.appendChild(pbToggle);
+          playerBar.appendChild(stopBtn);
+          document.body.appendChild(playerBar);
+        }
+
+        /* Vocals-only buttons: same block, different file. */
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".vocals-btn"),
+          function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              playBlock(
+                btn.closest(".audio-block"),
+                btn,
+                btn.getAttribute("data-audio"),
+              );
+            });
+          },
+        );
+
+        /* Full song and karaoke: one handler for every title pill. A pill whose label
+     changes while playing carries data-label-play / data-label-pause. */
+        Array.prototype.forEach.call(
+          document.querySelectorAll(".play-full-btn"),
+          function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.stopPropagation();
+              playBlock(btn, btn.querySelector(".pf-icon"));
+              var txt = btn.querySelector(".pf-text");
+              var playLabel = btn.getAttribute("data-label-play");
+              var pauseLabel = btn.getAttribute("data-label-pause");
+              if (txt && playLabel && pauseLabel) {
+                txt.textContent = btn.classList.contains("playing")
+                  ? pauseLabel
+                  : playLabel;
+              }
+            });
+          },
+        );
+
+        /* stop everything when leaving the page */
+        window.addEventListener("beforeunload", function () {
+          pauseCurrent();
+          stopSpeaking();
+        });
+
+        /* Dock the song title in the header once the real one leaves the viewport. A passive
      scroll listener is used rather than IntersectionObserver: the observer settles on a
      later frame and cannot be exercised in a headless test, and this is cheap at 18
      blocks of content. */
-  (function () {
-    var songTitle = document.querySelector(".song-title");
-    if (!songTitle) return;
-    var docked = null;
-    var syncTitle = function () {
-      var now = songTitle.getBoundingClientRect().bottom < 4;
-      if (now === docked) return;
-      docked = now;
-      document.body.classList.toggle("title-docked", now);
-    };
-    window.addEventListener("scroll", syncTitle, { passive: true });
-    window.addEventListener("resize", syncTitle);
-    syncTitle();
-  })();
+        (function () {
+          var songTitle = document.querySelector(".song-title");
+          if (!songTitle) return;
+          var docked = null;
+          var syncTitle = function () {
+            var now = songTitle.getBoundingClientRect().bottom < 4;
+            if (now === docked) return;
+            docked = now;
+            document.body.classList.toggle("title-docked", now);
+          };
+          window.addEventListener("scroll", syncTitle, { passive: true });
+          window.addEventListener("resize", syncTitle);
+          syncTitle();
+        })();
 
-  /* ---- karaoke video panel ---- */
-  var videoPanel = null;
-  var karaokeVideo = null;
+        /* ---- karaoke video panel ---- */
+        var videoPanel = null;
+        var karaokeVideo = null;
 
-  function syncPanelMetrics() {
-    var header = document.querySelector("header");
-    if (header) {
-      document.documentElement.style.setProperty("--header-h", header.offsetHeight + "px");
-    }
-    var w = Math.max(320, Math.min(640, Math.round(window.innerWidth * 0.46)));
-    document.documentElement.style.setProperty("--video-w", w + "px");
-  }
+        function syncPanelMetrics() {
+          var header = document.querySelector("header");
+          if (header) {
+            document.documentElement.style.setProperty(
+              "--header-h",
+              header.offsetHeight + "px",
+            );
+          }
+          var w = Math.max(
+            320,
+            Math.min(640, Math.round(window.innerWidth * 0.46)),
+          );
+          document.documentElement.style.setProperty("--video-w", w + "px");
+        }
 
-  function buildVideoPanel() {
-    videoPanel = document.createElement("div");
-    videoPanel.className = "video-panel";
-    videoPanel.id = "videoPanel";
-    videoPanel.setAttribute("aria-hidden", "true");
+        function buildVideoPanel() {
+          videoPanel = document.createElement("div");
+          videoPanel.className = "video-panel";
+          videoPanel.id = "videoPanel";
+          videoPanel.setAttribute("aria-hidden", "true");
 
-    var head = document.createElement("div");
-    head.className = "video-head";
-    var title = document.createElement("span");
-    title.textContent = "🎬 Karaoke video";
-    var closeBtn = document.createElement("button");
-    closeBtn.type = "button";
-    closeBtn.className = "video-close";
-    closeBtn.textContent = "✕";
-    closeBtn.setAttribute("aria-label", "Close video");
-    closeBtn.addEventListener("click", closeVideo);
-    head.appendChild(title);
-    head.appendChild(closeBtn);
+          var head = document.createElement("div");
+          head.className = "video-head";
+          var title = document.createElement("span");
+          title.textContent = "🎬 Karaoke video";
+          var closeBtn = document.createElement("button");
+          closeBtn.type = "button";
+          closeBtn.className = "video-close";
+          closeBtn.textContent = "✕";
+          closeBtn.setAttribute("aria-label", "Close video");
+          closeBtn.addEventListener("click", closeVideo);
+          head.appendChild(title);
+          head.appendChild(closeBtn);
 
-    karaokeVideo = document.createElement("video");
-    karaokeVideo.src = "URU-Karaoke-Vid.mp4";
-    karaokeVideo.controls = true;
-    karaokeVideo.playsInline = true;
-    karaokeVideo.preload = "none";   // 47MB: only fetch when asked for
-    karaokeVideo.setAttribute("playsinline", "");
+          karaokeVideo = document.createElement("video");
+          karaokeVideo.src = "URU-Karaoke-Vid.mp4";
+          karaokeVideo.controls = true;
+          karaokeVideo.playsInline = true;
+          karaokeVideo.preload = "none"; // 47MB: only fetch when asked for
+          karaokeVideo.setAttribute("playsinline", "");
 
-    videoPanel.appendChild(head);
-    videoPanel.appendChild(karaokeVideo);
-    document.body.appendChild(videoPanel);
-  }
+          videoPanel.appendChild(head);
+          videoPanel.appendChild(karaokeVideo);
+          document.body.appendChild(videoPanel);
+        }
 
-  function openVideo() {
-    if (!videoPanel) return;
-    // the video carries its own audio, so stop any MP3 first
-    pauseCurrent();
-    syncPanelMetrics();
-    document.body.classList.add("video-open");
-    videoPanel.setAttribute("aria-hidden", "false");
-    var btn = document.getElementById("videoBtn");
-    if (btn) btn.setAttribute("aria-pressed", "true");
-    if (karaokeVideo) {
-      var p = karaokeVideo.play();
-      if (p && p.catch) p.catch(function () {});
-    }
-  }
+        function openVideo() {
+          if (!videoPanel) return;
+          // the video carries its own audio, so stop any MP3 first
+          pauseCurrent();
+          syncPanelMetrics();
+          document.body.classList.add("video-open");
+          videoPanel.setAttribute("aria-hidden", "false");
+          var btn = document.getElementById("videoBtn");
+          if (btn) btn.setAttribute("aria-pressed", "true");
+          if (karaokeVideo) {
+            var p = karaokeVideo.play();
+            if (p && p.catch) p.catch(function () {});
+          }
+        }
 
-  function closeVideo() {
-    if (!videoPanel) return;
-    document.body.classList.remove("video-open");
-    videoPanel.setAttribute("aria-hidden", "true");
-    var btn = document.getElementById("videoBtn");
-    if (btn) btn.setAttribute("aria-pressed", "false");
-    if (karaokeVideo) karaokeVideo.pause();
-  }
+        function closeVideo() {
+          if (!videoPanel) return;
+          document.body.classList.remove("video-open");
+          videoPanel.setAttribute("aria-hidden", "true");
+          var btn = document.getElementById("videoBtn");
+          if (btn) btn.setAttribute("aria-pressed", "false");
+          if (karaokeVideo) karaokeVideo.pause();
+        }
 
-  function toggleVideo() {
-    if (document.body.classList.contains("video-open")) closeVideo();
-    else openVideo();
-  }
+        function toggleVideo() {
+          if (document.body.classList.contains("video-open")) closeVideo();
+          else openVideo();
+        }
 
-  buildVideoPanel();
-  syncPanelMetrics();
+        buildVideoPanel();
+        syncPanelMetrics();
 
-  var videoBtn = document.getElementById("videoBtn");
-  if (videoBtn) {
-    videoBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      toggleVideo();
-    });
-  }
+        var videoBtn = document.getElementById("videoBtn");
+        if (videoBtn) {
+          videoBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            toggleVideo();
+          });
+        }
 
-  window.addEventListener("resize", syncPanelMetrics);
-  document.addEventListener("keydown", function (e) {
-    if (e.key === "Escape") closeVideo();
-  });
+        window.addEventListener("resize", syncPanelMetrics);
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeVideo();
+        });
 
-  buildPlayerBar();
-  updatePlayerBar();
+        buildPlayerBar();
+        updatePlayerBar();
 
-  /* Some browsers need a user gesture to load voices */
-  document.addEventListener('click', function once() {
-    if (synth) { synth.getVoices(); pickVoice(); }
-    document.removeEventListener('click', once);
-  }, { once: true });
-})();
-</script>
-</body>
+        /* Some browsers need a user gesture to load voices */
+        document.addEventListener(
+          "click",
+          function once() {
+            if (synth) {
+              synth.getVoices();
+              pickVoice();
+            }
+            document.removeEventListener("click", once);
+          },
+          { once: true },
+        );
+      })();
+    </script>
+  </body>
 </html>
